@@ -1,0 +1,25 @@
+From c15714f0ae30f7b65ddb88bc39dd3d84c95e34d0 Mon Sep 17 00:00:00 2001
+From: Choong Yin Thong <yin.thong.choong@intel.com>
+Date: Fri, 18 Oct 2019 16:25:20 +0800
+Subject: [PATCH] Update Makefile for linking issue
+
+Signed-off-by: Choong Yin Thong <yin.thong.choong@intel.com>
+---
+ Makefile | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Makefile b/Makefile
+index ceb21b20..2280a9a5 100644
+--- a/Makefile
++++ b/Makefile
+@@ -424,6 +424,7 @@ ifneq ($(prefix),/usr)
+ # is a literal string interpreted much later by ld.so.  Escape it
+ # here with a dollar sign so Make doesn't expand $O.
+ LDFLAGS += '-Wl,-rpath,$$ORIGIN'
++AROPTS = rcs
+ endif
+ endif
+ 
+-- 
+2.22.0
+
