@@ -4,7 +4,7 @@
 #
 Name     : grpc
 Version  : 1.24.2
-Release  : 3
+Release  : 10
 URL      : https://github.com/grpc/grpc/archive/v1.24.2.tar.gz
 Source0  : https://github.com/grpc/grpc/archive/v1.24.2.tar.gz
 Source1  : https://github.com/c-ares/c-ares/tarball/e982924acee7f7313b4baa4ee5ec000c5e373c30
@@ -19,8 +19,8 @@ Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause BSL-1.0 MIT OpenSSL
 Requires: grpc-bin = %{version}-%{release}
 Requires: grpc-data = %{version}-%{release}
+Requires: grpc-lib = %{version}-%{release}
 Requires: grpc-license = %{version}-%{release}
-Requires: grpc-plugins = %{version}-%{release}
 Requires: Cython
 Requires: coverage
 Requires: protobuf
@@ -75,6 +75,7 @@ data components for the grpc package.
 %package dev
 Summary: dev components for the grpc package.
 Group: Development
+Requires: grpc-lib = %{version}-%{release}
 Requires: grpc-bin = %{version}-%{release}
 Requires: grpc-data = %{version}-%{release}
 Provides: grpc-devel = %{version}-%{release}
@@ -82,6 +83,16 @@ Requires: grpc = %{version}-%{release}
 
 %description dev
 dev components for the grpc package.
+
+
+%package lib
+Summary: lib components for the grpc package.
+Group: Libraries
+Requires: grpc-data = %{version}-%{release}
+Requires: grpc-license = %{version}-%{release}
+
+%description lib
+lib components for the grpc package.
 
 
 %package license
@@ -92,44 +103,37 @@ Group: Default
 license components for the grpc package.
 
 
-%package plugins
-Summary: plugins components for the grpc package.
-Group: Default
-
-%description plugins
-plugins components for the grpc package.
-
-
 %prep
 %setup -q -n grpc-1.24.2
-cd ..
-%setup -q -T -D -n grpc-1.24.2 -b 3
-cd ..
-%setup -q -T -D -n grpc-1.24.2 -b 1
-cd ..
-%setup -q -T -D -n grpc-1.24.2 -b 2
-cd ..
-%setup -q -T -D -n grpc-1.24.2 -b 6
-cd ..
-%setup -q -T -D -n grpc-1.24.2 -b 4
-cd ..
-%setup -q -T -D -n grpc-1.24.2 -b 5
-cd ..
-%setup -q -T -D -n grpc-1.24.2 -b 7
+cd %{_builddir}
+tar xf %{_sourcedir}/090faecb454fbd6e6e17a75ef8146acb037118d4
+cd %{_builddir}
+tar xf %{_sourcedir}/e982924acee7f7313b4baa4ee5ec000c5e373c30
+cd %{_builddir}
+tar xf %{_sourcedir}/28f50e0fed19872e0fd50dd23ce2ee8cd759338e
+cd %{_builddir}
+tar xf %{_sourcedir}/09745575a923640154bcf307fba8aedff47f240a
+cd %{_builddir}
+tar xf %{_sourcedir}/b29b21a81b32ec273f118f589f46d56ad3332420
+cd %{_builddir}
+tar xf %{_sourcedir}/cacf7f1d4e3d44d871b605da3b647f07d718623f
+cd %{_builddir}
+tar xf %{_sourcedir}/931bbecbd3230ae7f22efa5d203639facc47f719
+cd %{_builddir}/grpc-1.24.2
 mkdir -p third_party/benchmark
-cp -r %{_topdir}/BUILD/google-benchmark-090faec/* %{_topdir}/BUILD/grpc-1.24.2/third_party/benchmark
+cp -r %{_builddir}/google-benchmark-090faec/* %{_builddir}/grpc-1.24.2/third_party/benchmark
 mkdir -p third_party/cares/cares
-cp -r %{_topdir}/BUILD/c-ares-c-ares-e982924/* %{_topdir}/BUILD/grpc-1.24.2/third_party/cares/cares
+cp -r %{_builddir}/c-ares-c-ares-e982924/* %{_builddir}/grpc-1.24.2/third_party/cares/cares
 mkdir -p third_party/gflags
-cp -r %{_topdir}/BUILD/gflags-gflags-28f50e0/* %{_topdir}/BUILD/grpc-1.24.2/third_party/gflags
+cp -r %{_builddir}/gflags-gflags-28f50e0/* %{_builddir}/grpc-1.24.2/third_party/gflags
 mkdir -p third_party/protobuf
-cp -r %{_topdir}/BUILD/protocolbuffers-protobuf-0974557/* %{_topdir}/BUILD/grpc-1.24.2/third_party/protobuf
+cp -r %{_builddir}/protocolbuffers-protobuf-0974557/* %{_builddir}/grpc-1.24.2/third_party/protobuf
 mkdir -p third_party/boringssl
-cp -r %{_topdir}/BUILD/google-boringssl-b29b21a/* %{_topdir}/BUILD/grpc-1.24.2/third_party/boringssl
+cp -r %{_builddir}/google-boringssl-b29b21a/* %{_builddir}/grpc-1.24.2/third_party/boringssl
 mkdir -p third_party/zlib
-cp -r %{_topdir}/BUILD/madler-zlib-cacf7f1/* %{_topdir}/BUILD/grpc-1.24.2/third_party/zlib
+cp -r %{_builddir}/madler-zlib-cacf7f1/* %{_builddir}/grpc-1.24.2/third_party/zlib
 mkdir -p third_party/upb
-cp -r %{_topdir}/BUILD/protocolbuffers-upb-931bbec/* %{_topdir}/BUILD/grpc-1.24.2/third_party/upb
+cp -r %{_builddir}/protocolbuffers-upb-931bbec/* %{_builddir}/grpc-1.24.2/third_party/upb
 %patch1 -p1
 
 %build
@@ -137,7 +141,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1571619826
+export SOURCE_DATE_EPOCH=1574819700
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
@@ -147,7 +151,7 @@ make  %{?_smp_mflags}
 
 
 %install
-export SOURCE_DATE_EPOCH=1571619826
+export SOURCE_DATE_EPOCH=1574819700
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grpc
 cp %{_builddir}/grpc-1.24.2/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2b8b815229aa8a61e483fb4ba0588b8b6c491890
@@ -166,6 +170,10 @@ cp %{_builddir}/grpc-1.24.2/third_party/upb/LICENSE %{buildroot}/usr/share/packa
 cp %{_builddir}/grpc-1.24.2/third_party/upb/third_party/lunit/LICENSE %{buildroot}/usr/share/package-licenses/grpc/fdd1d72fcc979c32a5ab8ae278a2dfd967faf820
 cp %{_builddir}/grpc-1.24.2/third_party/zlib/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/grpc/892b34f7865d90a6f949f50d95e49625a10bc7f0
 %make_install prefix=%{buildroot}/usr
+## install_append content
+mkdir -p %{buildroot}/usr/lib64
+mv %{buildroot}/usr/lib/*.* %{buildroot}/usr/lib64/
+## install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -457,21 +465,44 @@ cp %{_builddir}/grpc-1.24.2/third_party/zlib/contrib/dotzlib/LICENSE_1_0.txt %{b
 /usr/include/grpcpp/support/sync_stream_impl.h
 /usr/include/grpcpp/support/time.h
 /usr/include/grpcpp/support/validate_service_config.h
-/usr/lib/libaddress_sorting.so
-/usr/lib/libgpr.so
-/usr/lib/libgrpc++.so
-/usr/lib/libgrpc++_error_details.so
-/usr/lib/libgrpc++_reflection.so
-/usr/lib/libgrpc++_unsecure.so
-/usr/lib/libgrpc.so
-/usr/lib/libgrpc_cronet.so
-/usr/lib/libgrpc_unsecure.so
-/usr/lib/libgrpcpp_channelz.so
+/usr/lib64/libaddress_sorting.so
+/usr/lib64/libgpr.so
+/usr/lib64/libgrpc++.so
+/usr/lib64/libgrpc++_error_details.so
+/usr/lib64/libgrpc++_reflection.so
+/usr/lib64/libgrpc++_unsecure.so
+/usr/lib64/libgrpc.so
+/usr/lib64/libgrpc_cronet.so
+/usr/lib64/libgrpc_unsecure.so
+/usr/lib64/libgrpcpp_channelz.so
 /usr/lib64/pkgconfig/gpr.pc
 /usr/lib64/pkgconfig/grpc++.pc
 /usr/lib64/pkgconfig/grpc++_unsecure.pc
 /usr/lib64/pkgconfig/grpc.pc
 /usr/lib64/pkgconfig/grpc_unsecure.pc
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/libaddress_sorting.so.8
+/usr/lib64/libaddress_sorting.so.8.0.0
+/usr/lib64/libgpr.so.8
+/usr/lib64/libgpr.so.8.0.0
+/usr/lib64/libgrpc++.so.1
+/usr/lib64/libgrpc++.so.1.24.2
+/usr/lib64/libgrpc++_error_details.so.1
+/usr/lib64/libgrpc++_error_details.so.1.24.2
+/usr/lib64/libgrpc++_reflection.so.1
+/usr/lib64/libgrpc++_reflection.so.1.24.2
+/usr/lib64/libgrpc++_unsecure.so.1
+/usr/lib64/libgrpc++_unsecure.so.1.24.2
+/usr/lib64/libgrpc.so.8
+/usr/lib64/libgrpc.so.8.0.0
+/usr/lib64/libgrpc_cronet.so.8
+/usr/lib64/libgrpc_cronet.so.8.0.0
+/usr/lib64/libgrpc_unsecure.so.8
+/usr/lib64/libgrpc_unsecure.so.8.0.0
+/usr/lib64/libgrpcpp_channelz.so.1
+/usr/lib64/libgrpcpp_channelz.so.1.24.2
 
 %files license
 %defattr(0644,root,root,0755)
@@ -489,26 +520,3 @@ cp %{_builddir}/grpc-1.24.2/third_party/zlib/contrib/dotzlib/LICENSE_1_0.txt %{b
 /usr/share/package-licenses/grpc/b71c498e7e934dcfb176710d4f42e18b9e86fe85
 /usr/share/package-licenses/grpc/e9c597f9b6cf935773ee731d4170b0c2ba142dbb
 /usr/share/package-licenses/grpc/fdd1d72fcc979c32a5ab8ae278a2dfd967faf820
-
-%files plugins
-%defattr(-,root,root,-)
-/usr/lib/libaddress_sorting.so.8
-/usr/lib/libaddress_sorting.so.8.0.0
-/usr/lib/libgpr.so.8
-/usr/lib/libgpr.so.8.0.0
-/usr/lib/libgrpc++.so.1
-/usr/lib/libgrpc++.so.1.24.2
-/usr/lib/libgrpc++_error_details.so.1
-/usr/lib/libgrpc++_error_details.so.1.24.2
-/usr/lib/libgrpc++_reflection.so.1
-/usr/lib/libgrpc++_reflection.so.1.24.2
-/usr/lib/libgrpc++_unsecure.so.1
-/usr/lib/libgrpc++_unsecure.so.1.24.2
-/usr/lib/libgrpc.so.8
-/usr/lib/libgrpc.so.8.0.0
-/usr/lib/libgrpc_cronet.so.8
-/usr/lib/libgrpc_cronet.so.8.0.0
-/usr/lib/libgrpc_unsecure.so.8
-/usr/lib/libgrpc_unsecure.so.8.0.0
-/usr/lib/libgrpcpp_channelz.so.1
-/usr/lib/libgrpcpp_channelz.so.1.24.2
