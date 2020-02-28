@@ -4,7 +4,7 @@
 #
 Name     : grpc
 Version  : 1.24.2
-Release  : 12
+Release  : 13
 URL      : https://github.com/grpc/grpc/archive/v1.24.2.tar.gz
 Source0  : https://github.com/grpc/grpc/archive/v1.24.2.tar.gz
 Source1  : https://github.com/c-ares/c-ares/tarball/e982924acee7f7313b4baa4ee5ec000c5e373c30
@@ -14,7 +14,7 @@ Source4  : https://github.com/google/boringssl/tarball/b29b21a81b32ec273f118f589
 Source5  : https://github.com/madler/zlib/tarball/cacf7f1d4e3d44d871b605da3b647f07d718623f
 Source6  : https://github.com/protocolbuffers/protobuf/tarball/09745575a923640154bcf307fba8aedff47f240a
 Source7  : https://github.com/protocolbuffers/upb/tarball/931bbecbd3230ae7f22efa5d203639facc47f719
-Summary  : zlib compression library
+Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause BSL-1.0 MIT OpenSSL
 Requires: grpc-bin = %{version}-%{release}
@@ -24,35 +24,25 @@ Requires: grpc-license = %{version}-%{release}
 Requires: Cython
 Requires: coverage
 Requires: protobuf
-Requires: setuptools
 Requires: six
 Requires: wheel
 BuildRequires : Cython
-BuildRequires : apache-maven
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-distutils3
 BuildRequires : buildreq-golang
-BuildRequires : buildreq-mvn
-BuildRequires : buildreq-php
 BuildRequires : buildreq-qmake
 BuildRequires : c-ares-dev
 BuildRequires : coverage
-BuildRequires : gradle
 BuildRequires : openssl-dev
 BuildRequires : pkgconfig(zlib)
 BuildRequires : protobuf
-BuildRequires : setuptools
 BuildRequires : six
 BuildRequires : wheel
 Patch1: 0001-Update-Makefile-for-linking-issue.patch
 
 %description
-ZLIB DATA COMPRESSION LIBRARY
-zlib 1.2.11 is a general purpose data compression library.  All the code is
-thread safe.  The data format used by the zlib library is described by RFCs
-(Request for Comments) 1950 to 1952 in the files
-http://tools.ietf.org/html/rfc1950 (zlib format), rfc1951 (deflate format) and
-rfc1952 (gzip format).
+The status.proto file is copied from
+https://github.com/googleapis/googleapis/blob/master/google/rpc/status.proto.
 
 %package bin
 Summary: bin components for the grpc package.
@@ -141,7 +131,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1574819700
+export SOURCE_DATE_EPOCH=1582929207
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
@@ -151,28 +141,29 @@ make  %{?_smp_mflags}
 
 
 %install
-export SOURCE_DATE_EPOCH=1574819700
+export SOURCE_DATE_EPOCH=1582929207
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grpc
+cp %{_builddir}/c-ares-c-ares-e982924/LICENSE.md %{buildroot}/usr/share/package-licenses/grpc/e9c597f9b6cf935773ee731d4170b0c2ba142dbb
+cp %{_builddir}/gflags-gflags-28f50e0/COPYING.txt %{buildroot}/usr/share/package-licenses/grpc/b2d4ab17f1b8ef9e0646ba932dce81efe3b852ab
+cp %{_builddir}/google-benchmark-090faec/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/google-boringssl-b29b21a/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2c4bc817e0d969875f7c241e9ccfa02d0a7751f0
+cp %{_builddir}/google-boringssl-b29b21a/third_party/android-cmake/LICENSE %{buildroot}/usr/share/package-licenses/grpc/6ddaf91c4bdcc84506b4652937b40776c504d41e
+cp %{_builddir}/google-boringssl-b29b21a/third_party/fiat/LICENSE %{buildroot}/usr/share/package-licenses/grpc/b71c498e7e934dcfb176710d4f42e18b9e86fe85
+cp %{_builddir}/google-boringssl-b29b21a/third_party/googletest/LICENSE %{buildroot}/usr/share/package-licenses/grpc/5a2314153eadadc69258a9429104cd11804ea304
 cp %{_builddir}/grpc-1.24.2/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2b8b815229aa8a61e483fb4ba0588b8b6c491890
 cp %{_builddir}/grpc-1.24.2/src/php/ext/grpc/LICENSE %{buildroot}/usr/share/package-licenses/grpc/7d96a2516756ac02b4f9c984bb0dc09773200a99
 cp %{_builddir}/grpc-1.24.2/third_party/address_sorting/LICENSE %{buildroot}/usr/share/package-licenses/grpc/aa0f4491c1110db68dd4e054555e255fd470d4f6
-cp %{_builddir}/grpc-1.24.2/third_party/benchmark/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2b8b815229aa8a61e483fb4ba0588b8b6c491890
-cp %{_builddir}/grpc-1.24.2/third_party/boringssl/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2c4bc817e0d969875f7c241e9ccfa02d0a7751f0
-cp %{_builddir}/grpc-1.24.2/third_party/boringssl/third_party/android-cmake/LICENSE %{buildroot}/usr/share/package-licenses/grpc/6ddaf91c4bdcc84506b4652937b40776c504d41e
-cp %{_builddir}/grpc-1.24.2/third_party/boringssl/third_party/fiat/LICENSE %{buildroot}/usr/share/package-licenses/grpc/b71c498e7e934dcfb176710d4f42e18b9e86fe85
-cp %{_builddir}/grpc-1.24.2/third_party/boringssl/third_party/googletest/LICENSE %{buildroot}/usr/share/package-licenses/grpc/5a2314153eadadc69258a9429104cd11804ea304
-cp %{_builddir}/grpc-1.24.2/third_party/cares/cares/LICENSE.md %{buildroot}/usr/share/package-licenses/grpc/e9c597f9b6cf935773ee731d4170b0c2ba142dbb
-cp %{_builddir}/grpc-1.24.2/third_party/gflags/COPYING.txt %{buildroot}/usr/share/package-licenses/grpc/b2d4ab17f1b8ef9e0646ba932dce81efe3b852ab
-cp %{_builddir}/grpc-1.24.2/third_party/protobuf/LICENSE %{buildroot}/usr/share/package-licenses/grpc/1b5a14d06dd784e88dadc5c68344be2dc13875b6
 cp %{_builddir}/grpc-1.24.2/third_party/rake-compiler-dock/LICENSE.txt %{buildroot}/usr/share/package-licenses/grpc/88c9733ea42866741711462cb513b74d2d4555e8
-cp %{_builddir}/grpc-1.24.2/third_party/upb/LICENSE %{buildroot}/usr/share/package-licenses/grpc/62a84576412fd902600dc53e00d37e3607865dae
-cp %{_builddir}/grpc-1.24.2/third_party/upb/third_party/lunit/LICENSE %{buildroot}/usr/share/package-licenses/grpc/fdd1d72fcc979c32a5ab8ae278a2dfd967faf820
-cp %{_builddir}/grpc-1.24.2/third_party/zlib/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/grpc/892b34f7865d90a6f949f50d95e49625a10bc7f0
+cp %{_builddir}/madler-zlib-cacf7f1/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/grpc/892b34f7865d90a6f949f50d95e49625a10bc7f0
+cp %{_builddir}/protocolbuffers-protobuf-0974557/LICENSE %{buildroot}/usr/share/package-licenses/grpc/1b5a14d06dd784e88dadc5c68344be2dc13875b6
+cp %{_builddir}/protocolbuffers-upb-931bbec/LICENSE %{buildroot}/usr/share/package-licenses/grpc/62a84576412fd902600dc53e00d37e3607865dae
+cp %{_builddir}/protocolbuffers-upb-931bbec/third_party/lunit/LICENSE %{buildroot}/usr/share/package-licenses/grpc/fdd1d72fcc979c32a5ab8ae278a2dfd967faf820
 %make_install prefix=%{buildroot}/usr
 ## install_append content
 mkdir -p %{buildroot}/usr/lib64
 mv %{buildroot}/usr/lib/*.* %{buildroot}/usr/lib64/
+
 ## install_append end
 
 %files
