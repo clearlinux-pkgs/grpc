@@ -4,7 +4,7 @@
 #
 Name     : grpc
 Version  : 1.24.2
-Release  : 13
+Release  : 14
 URL      : https://github.com/grpc/grpc/archive/v1.24.2.tar.gz
 Source0  : https://github.com/grpc/grpc/archive/v1.24.2.tar.gz
 Source1  : https://github.com/c-ares/c-ares/tarball/e982924acee7f7313b4baa4ee5ec000c5e373c30
@@ -131,17 +131,17 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1582929207
+export SOURCE_DATE_EPOCH=1624637117
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 make  %{?_smp_mflags}
 
 
 %install
-export SOURCE_DATE_EPOCH=1582929207
+export SOURCE_DATE_EPOCH=1624637117
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grpc
 cp %{_builddir}/c-ares-c-ares-e982924/LICENSE.md %{buildroot}/usr/share/package-licenses/grpc/e9c597f9b6cf935773ee731d4170b0c2ba142dbb

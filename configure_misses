@@ -1,2 +1,6 @@
-Configure miss: whether __SUNPRO_CC is declared
+Configure miss: g++ option to enable C++11 features
+Configure miss: g++ options needed to detect all undeclared functions
+Configure miss: gcc option to enable C99 features
 Configure miss: whether -latomic is needed
+Configure miss: whether __SUNPRO_CC is declared
+Configure miss: whether the compiler supports GNU Objective C
