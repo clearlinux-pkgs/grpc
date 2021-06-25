@@ -1,3 +1,8 @@
-mkdir -p %{buildroot}/usr/lib64
+mkdir -p %{buildroot}/usr/lib64/haswell
+rm -rf %{buildroot}/usr/lib/*.*
+pushd ../buildavx2/
+%make_install_avx2 prefix=%{buildroot}/usr
+popd
+mv %{buildroot}/usr/lib/*.* %{buildroot}/usr/lib64/haswell
+%make_install prefix=%{buildroot}/usr
 mv %{buildroot}/usr/lib/*.* %{buildroot}/usr/lib64/
-
