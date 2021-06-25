@@ -4,7 +4,7 @@
 #
 Name     : grpc
 Version  : 1.24.2
-Release  : 15
+Release  : 16
 URL      : https://github.com/grpc/grpc/archive/v1.24.2.tar.gz
 Source0  : https://github.com/grpc/grpc/archive/v1.24.2.tar.gz
 Source1  : https://github.com/c-ares/c-ares/tarball/e982924acee7f7313b4baa4ee5ec000c5e373c30
@@ -126,7 +126,7 @@ mkdir -p third_party/upb
 cp -r %{_builddir}/protocolbuffers-upb-931bbec/* %{_builddir}/grpc-1.24.2/third_party/upb
 %patch1 -p1
 pushd ..
-cp -a grpc-1.24.2 buildavx512
+cp -a grpc-1.24.2 buildavx2
 popd
 
 %build
@@ -134,7 +134,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1624638067
+export SOURCE_DATE_EPOCH=1624645501
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -mprefer-vector-width=256 "
 export FCFLAGS="$FFLAGS -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -mprefer-vector-width=256 "
@@ -142,17 +142,17 @@ export FFLAGS="$FFLAGS -Ofast -falign-functions=32 -fno-lto -fno-semantic-interp
 export CXXFLAGS="$CXXFLAGS -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -mprefer-vector-width=256 "
 make  %{?_smp_mflags}
 
-pushd ../buildavx512
-export CFLAGS="$CFLAGS -m64 -march=skylake-avx512 -mprefer-vector-width=512"
-export CXXFLAGS="$CXXFLAGS -m64 -march=skylake-avx512 -mprefer-vector-width=512"
-export FFLAGS="$FFLAGS -m64 -march=skylake-avx512 -mprefer-vector-width=512"
-export FCFLAGS="$FCFLAGS -m64 -march=skylake-avx512 -mprefer-vector-width=512"
-export LDFLAGS="$LDFLAGS -m64 -march=skylake-avx512"
+pushd ../buildavx2
+export CFLAGS="$CFLAGS -m64 -march=haswell"
+export CXXFLAGS="$CXXFLAGS -m64 -march=haswell"
+export FFLAGS="$FFLAGS -m64 -march=haswell"
+export FCFLAGS="$FCFLAGS -m64 -march=haswell"
+export LDFLAGS="$LDFLAGS -m64 -march=haswell"
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1624638067
+export SOURCE_DATE_EPOCH=1624645501
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grpc
 cp %{_builddir}/c-ares-c-ares-e982924/LICENSE.md %{buildroot}/usr/share/package-licenses/grpc/e9c597f9b6cf935773ee731d4170b0c2ba142dbb
@@ -170,8 +170,8 @@ cp %{_builddir}/madler-zlib-cacf7f1/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}
 cp %{_builddir}/protocolbuffers-protobuf-0974557/LICENSE %{buildroot}/usr/share/package-licenses/grpc/1b5a14d06dd784e88dadc5c68344be2dc13875b6
 cp %{_builddir}/protocolbuffers-upb-931bbec/LICENSE %{buildroot}/usr/share/package-licenses/grpc/62a84576412fd902600dc53e00d37e3607865dae
 cp %{_builddir}/protocolbuffers-upb-931bbec/third_party/lunit/LICENSE %{buildroot}/usr/share/package-licenses/grpc/fdd1d72fcc979c32a5ab8ae278a2dfd967faf820
-pushd ../buildavx512/
-%make_install_avx512 prefix=%{buildroot}/usr
+pushd ../buildavx2/
+%make_install_avx2 prefix=%{buildroot}/usr
 popd
 %make_install prefix=%{buildroot}/usr
 ## install_append content
@@ -192,13 +192,13 @@ mv %{buildroot}/usr/lib/*.* %{buildroot}/usr/lib64/
 /usr/bin/grpc_php_plugin
 /usr/bin/grpc_python_plugin
 /usr/bin/grpc_ruby_plugin
-/usr/bin/haswell/avx512_1/grpc_cpp_plugin
-/usr/bin/haswell/avx512_1/grpc_csharp_plugin
-/usr/bin/haswell/avx512_1/grpc_node_plugin
-/usr/bin/haswell/avx512_1/grpc_objective_c_plugin
-/usr/bin/haswell/avx512_1/grpc_php_plugin
-/usr/bin/haswell/avx512_1/grpc_python_plugin
-/usr/bin/haswell/avx512_1/grpc_ruby_plugin
+/usr/bin/haswell/grpc_cpp_plugin
+/usr/bin/haswell/grpc_csharp_plugin
+/usr/bin/haswell/grpc_node_plugin
+/usr/bin/haswell/grpc_objective_c_plugin
+/usr/bin/haswell/grpc_php_plugin
+/usr/bin/haswell/grpc_python_plugin
+/usr/bin/haswell/grpc_ruby_plugin
 
 %files data
 %defattr(-,root,root,-)
