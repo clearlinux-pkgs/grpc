@@ -1,2 +1,8 @@
 1.24.2
 pkgconfig(zlib)
+pypi(coverage)
+pypi(cython)
+pypi(enum34)
+pypi(protobuf)
+pypi(six)
+pypi(wheel)
