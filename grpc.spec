@@ -4,7 +4,7 @@
 #
 Name     : grpc
 Version  : 1.24.2
-Release  : 24
+Release  : 25
 URL      : https://github.com/grpc/grpc/archive/v1.24.2.tar.gz
 Source0  : https://github.com/grpc/grpc/archive/v1.24.2.tar.gz
 Source1  : https://github.com/c-ares/c-ares/tarball/e982924acee7f7313b4baa4ee5ec000c5e373c30
@@ -23,7 +23,6 @@ Requires: grpc-lib = %{version}-%{release}
 Requires: grpc-license = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-distutils3
-BuildRequires : buildreq-golang
 BuildRequires : buildreq-qmake
 BuildRequires : c-ares-dev
 BuildRequires : openssl-dev
@@ -130,7 +129,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1641850866
+export SOURCE_DATE_EPOCH=1647637729
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
 export FCFLAGS="$FFLAGS -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
@@ -148,7 +147,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1641850866
+export SOURCE_DATE_EPOCH=1647637729
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grpc
 cp %{_builddir}/c-ares-c-ares-e982924/LICENSE.md %{buildroot}/usr/share/package-licenses/grpc/e9c597f9b6cf935773ee731d4170b0c2ba142dbb
