@@ -4,16 +4,16 @@
 #
 Name     : grpc
 Version  : 1.24.2
-Release  : 25
+Release  : 26
 URL      : https://github.com/grpc/grpc/archive/v1.24.2.tar.gz
 Source0  : https://github.com/grpc/grpc/archive/v1.24.2.tar.gz
-Source1  : https://github.com/c-ares/c-ares/tarball/e982924acee7f7313b4baa4ee5ec000c5e373c30
-Source2  : https://github.com/gflags/gflags/tarball/28f50e0fed19872e0fd50dd23ce2ee8cd759338e
-Source3  : https://github.com/google/benchmark/tarball/090faecb454fbd6e6e17a75ef8146acb037118d4
-Source4  : https://github.com/google/boringssl/tarball/b29b21a81b32ec273f118f589f46d56ad3332420
-Source5  : https://github.com/madler/zlib/tarball/cacf7f1d4e3d44d871b605da3b647f07d718623f
-Source6  : https://github.com/protocolbuffers/protobuf/tarball/09745575a923640154bcf307fba8aedff47f240a
-Source7  : https://github.com/protocolbuffers/upb/tarball/931bbecbd3230ae7f22efa5d203639facc47f719
+Source1  : https://github.com/c-ares/c-ares/archive/e982924acee7f7313b4baa4ee5ec000c5e373c30.tar.gz
+Source2  : https://github.com/gflags/gflags/archive/28f50e0fed19872e0fd50dd23ce2ee8cd759338e.tar.gz
+Source3  : https://github.com/google/benchmark/archive/090faecb454fbd6e6e17a75ef8146acb037118d4.tar.gz
+Source4  : https://github.com/google/boringssl/archive/b29b21a81b32ec273f118f589f46d56ad3332420.tar.gz
+Source5  : https://github.com/madler/zlib/archive/cacf7f1d4e3d44d871b605da3b647f07d718623f.tar.gz
+Source6  : https://github.com/protocolbuffers/protobuf/archive/09745575a923640154bcf307fba8aedff47f240a.tar.gz
+Source7  : https://github.com/protocolbuffers/upb/archive/931bbecbd3230ae7f22efa5d203639facc47f719.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause BSL-1.0 MIT OpenSSL
@@ -91,34 +91,34 @@ license components for the grpc package.
 %prep
 %setup -q -n grpc-1.24.2
 cd %{_builddir}
-tar xf %{_sourcedir}/090faecb454fbd6e6e17a75ef8146acb037118d4
+tar xf %{_sourcedir}/090faecb454fbd6e6e17a75ef8146acb037118d4.tar.gz
 cd %{_builddir}
-tar xf %{_sourcedir}/e982924acee7f7313b4baa4ee5ec000c5e373c30
+tar xf %{_sourcedir}/e982924acee7f7313b4baa4ee5ec000c5e373c30.tar.gz
 cd %{_builddir}
-tar xf %{_sourcedir}/28f50e0fed19872e0fd50dd23ce2ee8cd759338e
+tar xf %{_sourcedir}/28f50e0fed19872e0fd50dd23ce2ee8cd759338e.tar.gz
 cd %{_builddir}
-tar xf %{_sourcedir}/09745575a923640154bcf307fba8aedff47f240a
+tar xf %{_sourcedir}/09745575a923640154bcf307fba8aedff47f240a.tar.gz
 cd %{_builddir}
-tar xf %{_sourcedir}/b29b21a81b32ec273f118f589f46d56ad3332420
+tar xf %{_sourcedir}/b29b21a81b32ec273f118f589f46d56ad3332420.tar.gz
 cd %{_builddir}
-tar xf %{_sourcedir}/cacf7f1d4e3d44d871b605da3b647f07d718623f
+tar xf %{_sourcedir}/cacf7f1d4e3d44d871b605da3b647f07d718623f.tar.gz
 cd %{_builddir}
-tar xf %{_sourcedir}/931bbecbd3230ae7f22efa5d203639facc47f719
+tar xf %{_sourcedir}/931bbecbd3230ae7f22efa5d203639facc47f719.tar.gz
 cd %{_builddir}/grpc-1.24.2
 mkdir -p third_party/benchmark
-cp -r %{_builddir}/google-benchmark-090faec/* %{_builddir}/grpc-1.24.2/third_party/benchmark
+cp -r %{_builddir}/benchmark-090faecb454fbd6e6e17a75ef8146acb037118d4/* %{_builddir}/grpc-1.24.2/third_party/benchmark
 mkdir -p third_party/cares/cares
-cp -r %{_builddir}/c-ares-c-ares-e982924/* %{_builddir}/grpc-1.24.2/third_party/cares/cares
+cp -r %{_builddir}/c-ares-e982924acee7f7313b4baa4ee5ec000c5e373c30/* %{_builddir}/grpc-1.24.2/third_party/cares/cares
 mkdir -p third_party/gflags
-cp -r %{_builddir}/gflags-gflags-28f50e0/* %{_builddir}/grpc-1.24.2/third_party/gflags
+cp -r %{_builddir}/gflags-28f50e0fed19872e0fd50dd23ce2ee8cd759338e/* %{_builddir}/grpc-1.24.2/third_party/gflags
 mkdir -p third_party/protobuf
-cp -r %{_builddir}/protocolbuffers-protobuf-0974557/* %{_builddir}/grpc-1.24.2/third_party/protobuf
+cp -r %{_builddir}/protobuf-09745575a923640154bcf307fba8aedff47f240a/* %{_builddir}/grpc-1.24.2/third_party/protobuf
 mkdir -p third_party/boringssl
-cp -r %{_builddir}/google-boringssl-b29b21a/* %{_builddir}/grpc-1.24.2/third_party/boringssl
+cp -r %{_builddir}/boringssl-b29b21a81b32ec273f118f589f46d56ad3332420/* %{_builddir}/grpc-1.24.2/third_party/boringssl
 mkdir -p third_party/zlib
-cp -r %{_builddir}/madler-zlib-cacf7f1/* %{_builddir}/grpc-1.24.2/third_party/zlib
+cp -r %{_builddir}/zlib-cacf7f1d4e3d44d871b605da3b647f07d718623f/* %{_builddir}/grpc-1.24.2/third_party/zlib
 mkdir -p third_party/upb
-cp -r %{_builddir}/protocolbuffers-upb-931bbec/* %{_builddir}/grpc-1.24.2/third_party/upb
+cp -r %{_builddir}/upb-931bbecbd3230ae7f22efa5d203639facc47f719/* %{_builddir}/grpc-1.24.2/third_party/upb
 %patch1 -p1
 pushd ..
 cp -a grpc-1.24.2 buildavx2
@@ -129,7 +129,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1647637729
+export SOURCE_DATE_EPOCH=1648877160
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
 export FCFLAGS="$FFLAGS -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
@@ -147,24 +147,24 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1647637729
+export SOURCE_DATE_EPOCH=1648877160
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grpc
-cp %{_builddir}/c-ares-c-ares-e982924/LICENSE.md %{buildroot}/usr/share/package-licenses/grpc/e9c597f9b6cf935773ee731d4170b0c2ba142dbb
-cp %{_builddir}/gflags-gflags-28f50e0/COPYING.txt %{buildroot}/usr/share/package-licenses/grpc/b2d4ab17f1b8ef9e0646ba932dce81efe3b852ab
-cp %{_builddir}/google-benchmark-090faec/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2b8b815229aa8a61e483fb4ba0588b8b6c491890
-cp %{_builddir}/google-boringssl-b29b21a/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2c4bc817e0d969875f7c241e9ccfa02d0a7751f0
-cp %{_builddir}/google-boringssl-b29b21a/third_party/android-cmake/LICENSE %{buildroot}/usr/share/package-licenses/grpc/6ddaf91c4bdcc84506b4652937b40776c504d41e
-cp %{_builddir}/google-boringssl-b29b21a/third_party/fiat/LICENSE %{buildroot}/usr/share/package-licenses/grpc/b71c498e7e934dcfb176710d4f42e18b9e86fe85
-cp %{_builddir}/google-boringssl-b29b21a/third_party/googletest/LICENSE %{buildroot}/usr/share/package-licenses/grpc/5a2314153eadadc69258a9429104cd11804ea304
+cp %{_builddir}/benchmark-090faecb454fbd6e6e17a75ef8146acb037118d4/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/boringssl-b29b21a81b32ec273f118f589f46d56ad3332420/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2c4bc817e0d969875f7c241e9ccfa02d0a7751f0
+cp %{_builddir}/boringssl-b29b21a81b32ec273f118f589f46d56ad3332420/third_party/android-cmake/LICENSE %{buildroot}/usr/share/package-licenses/grpc/6ddaf91c4bdcc84506b4652937b40776c504d41e
+cp %{_builddir}/boringssl-b29b21a81b32ec273f118f589f46d56ad3332420/third_party/fiat/LICENSE %{buildroot}/usr/share/package-licenses/grpc/b71c498e7e934dcfb176710d4f42e18b9e86fe85
+cp %{_builddir}/boringssl-b29b21a81b32ec273f118f589f46d56ad3332420/third_party/googletest/LICENSE %{buildroot}/usr/share/package-licenses/grpc/5a2314153eadadc69258a9429104cd11804ea304
+cp %{_builddir}/c-ares-e982924acee7f7313b4baa4ee5ec000c5e373c30/LICENSE.md %{buildroot}/usr/share/package-licenses/grpc/e9c597f9b6cf935773ee731d4170b0c2ba142dbb
+cp %{_builddir}/gflags-28f50e0fed19872e0fd50dd23ce2ee8cd759338e/COPYING.txt %{buildroot}/usr/share/package-licenses/grpc/b2d4ab17f1b8ef9e0646ba932dce81efe3b852ab
 cp %{_builddir}/grpc-1.24.2/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2b8b815229aa8a61e483fb4ba0588b8b6c491890
 cp %{_builddir}/grpc-1.24.2/src/php/ext/grpc/LICENSE %{buildroot}/usr/share/package-licenses/grpc/7d96a2516756ac02b4f9c984bb0dc09773200a99
 cp %{_builddir}/grpc-1.24.2/third_party/address_sorting/LICENSE %{buildroot}/usr/share/package-licenses/grpc/aa0f4491c1110db68dd4e054555e255fd470d4f6
 cp %{_builddir}/grpc-1.24.2/third_party/rake-compiler-dock/LICENSE.txt %{buildroot}/usr/share/package-licenses/grpc/88c9733ea42866741711462cb513b74d2d4555e8
-cp %{_builddir}/madler-zlib-cacf7f1/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/grpc/892b34f7865d90a6f949f50d95e49625a10bc7f0
-cp %{_builddir}/protocolbuffers-protobuf-0974557/LICENSE %{buildroot}/usr/share/package-licenses/grpc/1b5a14d06dd784e88dadc5c68344be2dc13875b6
-cp %{_builddir}/protocolbuffers-upb-931bbec/LICENSE %{buildroot}/usr/share/package-licenses/grpc/62a84576412fd902600dc53e00d37e3607865dae
-cp %{_builddir}/protocolbuffers-upb-931bbec/third_party/lunit/LICENSE %{buildroot}/usr/share/package-licenses/grpc/fdd1d72fcc979c32a5ab8ae278a2dfd967faf820
+cp %{_builddir}/protobuf-09745575a923640154bcf307fba8aedff47f240a/LICENSE %{buildroot}/usr/share/package-licenses/grpc/1b5a14d06dd784e88dadc5c68344be2dc13875b6
+cp %{_builddir}/upb-931bbecbd3230ae7f22efa5d203639facc47f719/LICENSE %{buildroot}/usr/share/package-licenses/grpc/62a84576412fd902600dc53e00d37e3607865dae
+cp %{_builddir}/upb-931bbecbd3230ae7f22efa5d203639facc47f719/third_party/lunit/LICENSE %{buildroot}/usr/share/package-licenses/grpc/fdd1d72fcc979c32a5ab8ae278a2dfd967faf820
+cp %{_builddir}/zlib-cacf7f1d4e3d44d871b605da3b647f07d718623f/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/grpc/892b34f7865d90a6f949f50d95e49625a10bc7f0
 pushd ../buildavx2/
 %make_install_v3 prefix=%{buildroot}/usr
 popd
