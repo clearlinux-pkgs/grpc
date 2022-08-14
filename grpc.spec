@@ -4,7 +4,7 @@
 #
 Name     : grpc
 Version  : 1.24.2
-Release  : 29
+Release  : 30
 URL      : https://github.com/grpc/grpc/archive/v1.24.2.tar.gz
 Source0  : https://github.com/grpc/grpc/archive/v1.24.2.tar.gz
 Source1  : https://github.com/c-ares/c-ares/archive/e982924acee7f7313b4baa4ee5ec000c5e373c30.tar.gz
