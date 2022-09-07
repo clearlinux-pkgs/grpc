@@ -4,7 +4,7 @@
 #
 Name     : grpc
 Version  : 1.24.2
-Release  : 31
+Release  : 33
 URL      : https://github.com/grpc/grpc/archive/v1.24.2.tar.gz
 Source0  : https://github.com/grpc/grpc/archive/v1.24.2.tar.gz
 Source1  : https://github.com/c-ares/c-ares/archive/e982924acee7f7313b4baa4ee5ec000c5e373c30.tar.gz
@@ -129,7 +129,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656119361
+export SOURCE_DATE_EPOCH=1662573387
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -mprefer-vector-width=256 "
 export FCFLAGS="$FFLAGS -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -mprefer-vector-width=256 "
@@ -147,7 +147,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1656119361
+export SOURCE_DATE_EPOCH=1662573387
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grpc
 cp %{_builddir}/benchmark-090faecb454fbd6e6e17a75ef8146acb037118d4/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2b8b815229aa8a61e483fb4ba0588b8b6c491890
@@ -157,10 +157,10 @@ cp %{_builddir}/boringssl-b29b21a81b32ec273f118f589f46d56ad3332420/third_party/f
 cp %{_builddir}/boringssl-b29b21a81b32ec273f118f589f46d56ad3332420/third_party/googletest/LICENSE %{buildroot}/usr/share/package-licenses/grpc/5a2314153eadadc69258a9429104cd11804ea304
 cp %{_builddir}/c-ares-e982924acee7f7313b4baa4ee5ec000c5e373c30/LICENSE.md %{buildroot}/usr/share/package-licenses/grpc/e9c597f9b6cf935773ee731d4170b0c2ba142dbb
 cp %{_builddir}/gflags-28f50e0fed19872e0fd50dd23ce2ee8cd759338e/COPYING.txt %{buildroot}/usr/share/package-licenses/grpc/b2d4ab17f1b8ef9e0646ba932dce81efe3b852ab
-cp %{_builddir}/grpc-1.24.2/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2b8b815229aa8a61e483fb4ba0588b8b6c491890
-cp %{_builddir}/grpc-1.24.2/src/php/ext/grpc/LICENSE %{buildroot}/usr/share/package-licenses/grpc/7d96a2516756ac02b4f9c984bb0dc09773200a99
-cp %{_builddir}/grpc-1.24.2/third_party/address_sorting/LICENSE %{buildroot}/usr/share/package-licenses/grpc/aa0f4491c1110db68dd4e054555e255fd470d4f6
-cp %{_builddir}/grpc-1.24.2/third_party/rake-compiler-dock/LICENSE.txt %{buildroot}/usr/share/package-licenses/grpc/88c9733ea42866741711462cb513b74d2d4555e8
+cp %{_builddir}/grpc-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/grpc-%{version}/src/php/ext/grpc/LICENSE %{buildroot}/usr/share/package-licenses/grpc/7d96a2516756ac02b4f9c984bb0dc09773200a99
+cp %{_builddir}/grpc-%{version}/third_party/address_sorting/LICENSE %{buildroot}/usr/share/package-licenses/grpc/aa0f4491c1110db68dd4e054555e255fd470d4f6
+cp %{_builddir}/grpc-%{version}/third_party/rake-compiler-dock/LICENSE.txt %{buildroot}/usr/share/package-licenses/grpc/88c9733ea42866741711462cb513b74d2d4555e8
 cp %{_builddir}/protobuf-09745575a923640154bcf307fba8aedff47f240a/LICENSE %{buildroot}/usr/share/package-licenses/grpc/1b5a14d06dd784e88dadc5c68344be2dc13875b6
 cp %{_builddir}/upb-931bbecbd3230ae7f22efa5d203639facc47f719/LICENSE %{buildroot}/usr/share/package-licenses/grpc/62a84576412fd902600dc53e00d37e3607865dae
 cp %{_builddir}/upb-931bbecbd3230ae7f22efa5d203639facc47f719/third_party/lunit/LICENSE %{buildroot}/usr/share/package-licenses/grpc/fdd1d72fcc979c32a5ab8ae278a2dfd967faf820
@@ -170,12 +170,12 @@ pushd ../buildavx2/
 popd
 %make_install prefix=%{buildroot}/usr
 ## install_append content
-mkdir -p %{buildroot}/usr/lib64/haswell
+mkdir -p %{buildroot}/usr/lib64/glibc-hwcaps/x86-64-v3
 rm -rf %{buildroot}/usr/lib/*.*
 pushd ../buildavx2/
 %make_install_avx2 prefix=%{buildroot}/usr
 popd
-mv %{buildroot}/usr/lib/*.* %{buildroot}/usr/lib64/haswell
+mv %{buildroot}/usr/lib/*.* %{buildroot}/usr/lib64/glibc-hwcaps/x86-64-v3
 %make_install prefix=%{buildroot}/usr
 mv %{buildroot}/usr/lib/*.* %{buildroot}/usr/lib64/
 ## install_append end
@@ -478,16 +478,16 @@ mv %{buildroot}/usr/lib/*.* %{buildroot}/usr/lib64/
 /usr/include/grpcpp/support/sync_stream_impl.h
 /usr/include/grpcpp/support/time.h
 /usr/include/grpcpp/support/validate_service_config.h
-/usr/lib64/haswell/libaddress_sorting.so
-/usr/lib64/haswell/libgpr.so
-/usr/lib64/haswell/libgrpc++.so
-/usr/lib64/haswell/libgrpc++_error_details.so
-/usr/lib64/haswell/libgrpc++_reflection.so
-/usr/lib64/haswell/libgrpc++_unsecure.so
-/usr/lib64/haswell/libgrpc.so
-/usr/lib64/haswell/libgrpc_cronet.so
-/usr/lib64/haswell/libgrpc_unsecure.so
-/usr/lib64/haswell/libgrpcpp_channelz.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libaddress_sorting.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgpr.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_error_details.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_reflection.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_unsecure.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc_cronet.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc_unsecure.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpcpp_channelz.so
 /usr/lib64/libaddress_sorting.so
 /usr/lib64/libgpr.so
 /usr/lib64/libgrpc++.so
@@ -506,26 +506,26 @@ mv %{buildroot}/usr/lib/*.* %{buildroot}/usr/lib64/
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/haswell/libaddress_sorting.so.8
-/usr/lib64/haswell/libaddress_sorting.so.8.0.0
-/usr/lib64/haswell/libgpr.so.8
-/usr/lib64/haswell/libgpr.so.8.0.0
-/usr/lib64/haswell/libgrpc++.so.1
-/usr/lib64/haswell/libgrpc++.so.1.24.2
-/usr/lib64/haswell/libgrpc++_error_details.so.1
-/usr/lib64/haswell/libgrpc++_error_details.so.1.24.2
-/usr/lib64/haswell/libgrpc++_reflection.so.1
-/usr/lib64/haswell/libgrpc++_reflection.so.1.24.2
-/usr/lib64/haswell/libgrpc++_unsecure.so.1
-/usr/lib64/haswell/libgrpc++_unsecure.so.1.24.2
-/usr/lib64/haswell/libgrpc.so.8
-/usr/lib64/haswell/libgrpc.so.8.0.0
-/usr/lib64/haswell/libgrpc_cronet.so.8
-/usr/lib64/haswell/libgrpc_cronet.so.8.0.0
-/usr/lib64/haswell/libgrpc_unsecure.so.8
-/usr/lib64/haswell/libgrpc_unsecure.so.8.0.0
-/usr/lib64/haswell/libgrpcpp_channelz.so.1
-/usr/lib64/haswell/libgrpcpp_channelz.so.1.24.2
+/usr/lib64/glibc-hwcaps/x86-64-v3/libaddress_sorting.so.8
+/usr/lib64/glibc-hwcaps/x86-64-v3/libaddress_sorting.so.8.0.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgpr.so.8
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgpr.so.8.0.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++.so.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++.so.1.24.2
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_error_details.so.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_error_details.so.1.24.2
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_reflection.so.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_reflection.so.1.24.2
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_unsecure.so.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_unsecure.so.1.24.2
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc.so.8
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc.so.8.0.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc_cronet.so.8
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc_cronet.so.8.0.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc_unsecure.so.8
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc_unsecure.so.8.0.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpcpp_channelz.so.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpcpp_channelz.so.1.24.2
 /usr/lib64/libaddress_sorting.so.8
 /usr/lib64/libaddress_sorting.so.8.0.0
 /usr/lib64/libgpr.so.8
