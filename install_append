@@ -1,8 +1,0 @@
-mkdir -p %{buildroot}/usr/lib64/glibc-hwcaps/x86-64-v3
-rm -rf %{buildroot}/usr/lib/*.*
-pushd ../buildavx2/
-%make_install_avx2 prefix=%{buildroot}/usr
-popd
-mv %{buildroot}/usr/lib/*.* %{buildroot}/usr/lib64/glibc-hwcaps/x86-64-v3
-%make_install prefix=%{buildroot}/usr
-mv %{buildroot}/usr/lib/*.* %{buildroot}/usr/lib64/
