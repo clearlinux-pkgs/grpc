@@ -5,7 +5,7 @@
 #
 Name     : grpc
 Version  : 1.54.0
-Release  : 38
+Release  : 39
 URL      : https://github.com/grpc/grpc/archive/v1.54.0/grpc-1.54.0.tar.gz
 Source0  : https://github.com/grpc/grpc/archive/v1.54.0/grpc-1.54.0.tar.gz
 Source1  : https://github.com/census-instrumentation/opencensus-proto/archive/v0.3.0/opencensus-proto-0.3.0.tar.gz
@@ -14,7 +14,6 @@ Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause MIT
 Requires: grpc-bin = %{version}-%{release}
 Requires: grpc-data = %{version}-%{release}
-Requires: grpc-filemap = %{version}-%{release}
 Requires: grpc-lib = %{version}-%{release}
 Requires: grpc-license = %{version}-%{release}
 BuildRequires : abseil-cpp-dev
@@ -42,7 +41,6 @@ Summary: bin components for the grpc package.
 Group: Binaries
 Requires: grpc-data = %{version}-%{release}
 Requires: grpc-license = %{version}-%{release}
-Requires: grpc-filemap = %{version}-%{release}
 
 %description bin
 bin components for the grpc package.
@@ -69,20 +67,11 @@ Requires: grpc = %{version}-%{release}
 dev components for the grpc package.
 
 
-%package filemap
-Summary: filemap components for the grpc package.
-Group: Default
-
-%description filemap
-filemap components for the grpc package.
-
-
 %package lib
 Summary: lib components for the grpc package.
 Group: Libraries
 Requires: grpc-data = %{version}-%{release}
 Requires: grpc-license = %{version}-%{release}
-Requires: grpc-filemap = %{version}-%{release}
 
 %description lib
 lib components for the grpc package.
@@ -109,14 +98,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1682012275
+export SOURCE_DATE_EPOCH=1682977749
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 %cmake .. -DgRPC_ABSL_PROVIDER:STRING='package' \
 -DgRPC_CARES_PROVIDER:STRING='package' \
 -DgRPC_SSL_PROVIDER:STRING='package' \
@@ -135,10 +124,10 @@ popd
 mkdir -p clr-build-avx2
 pushd clr-build-avx2
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz -march=x86-64-v3 "
-export FCFLAGS="$FFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz -march=x86-64-v3 "
-export FFLAGS="$FFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz -march=x86-64-v3 "
-export CXXFLAGS="$CXXFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz -march=x86-64-v3 "
+export CFLAGS="$CFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export FCFLAGS="$FFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export FFLAGS="$FFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
 export CFLAGS="$CFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
 export CXXFLAGS="$CXXFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
 export FFLAGS="$FFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
@@ -160,7 +149,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1682012275
+export SOURCE_DATE_EPOCH=1682977749
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grpc
 cp %{_builddir}/grpc-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/grpc/242ec6abfdd8c114f2e803b84934469c299348fc || :
@@ -185,6 +174,13 @@ popd
 
 %files bin
 %defattr(-,root,root,-)
+/V3/usr/bin/grpc_cpp_plugin
+/V3/usr/bin/grpc_csharp_plugin
+/V3/usr/bin/grpc_node_plugin
+/V3/usr/bin/grpc_objective_c_plugin
+/V3/usr/bin/grpc_php_plugin
+/V3/usr/bin/grpc_python_plugin
+/V3/usr/bin/grpc_ruby_plugin
 /usr/bin/grpc_cpp_plugin
 /usr/bin/grpc_csharp_plugin
 /usr/bin/grpc_node_plugin
@@ -192,7 +188,6 @@ popd
 /usr/bin/grpc_php_plugin
 /usr/bin/grpc_python_plugin
 /usr/bin/grpc_ruby_plugin
-/usr/share/clear/optimized-elf/bin*
 
 %files data
 %defattr(-,root,root,-)
@@ -200,6 +195,19 @@ popd
 
 %files dev
 %defattr(-,root,root,-)
+/V3/usr/lib64/libaddress_sorting.so
+/V3/usr/lib64/libgpr.so
+/V3/usr/lib64/libgrpc++.so
+/V3/usr/lib64/libgrpc++_alts.so
+/V3/usr/lib64/libgrpc++_error_details.so
+/V3/usr/lib64/libgrpc++_reflection.so
+/V3/usr/lib64/libgrpc++_unsecure.so
+/V3/usr/lib64/libgrpc.so
+/V3/usr/lib64/libgrpc_authorization_provider.so
+/V3/usr/lib64/libgrpc_plugin_support.so
+/V3/usr/lib64/libgrpc_unsecure.so
+/V3/usr/lib64/libgrpcpp_channelz.so
+/V3/usr/lib64/libupb.so
 /usr/include/grpc++/alarm.h
 /usr/include/grpc++/channel.h
 /usr/include/grpc++/client_context.h
@@ -487,19 +495,6 @@ popd
 /usr/lib64/cmake/grpc/modules/Findc-ares.cmake
 /usr/lib64/cmake/grpc/modules/Findre2.cmake
 /usr/lib64/cmake/grpc/modules/Findsystemd.cmake
-/usr/lib64/glibc-hwcaps/x86-64-v3/libaddress_sorting.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgpr.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_alts.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_error_details.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_reflection.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_unsecure.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc_authorization_provider.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc_plugin_support.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc_unsecure.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpcpp_channelz.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libupb.so
 /usr/lib64/libaddress_sorting.so
 /usr/lib64/libgpr.so
 /usr/lib64/libgrpc++.so
@@ -519,38 +514,34 @@ popd
 /usr/lib64/pkgconfig/grpc.pc
 /usr/lib64/pkgconfig/grpc_unsecure.pc
 
-%files filemap
-%defattr(-,root,root,-)
-/usr/share/clear/filemap/filemap-grpc
-
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/glibc-hwcaps/x86-64-v3/libaddress_sorting.so.31
-/usr/lib64/glibc-hwcaps/x86-64-v3/libaddress_sorting.so.31.0.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgpr.so.31
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgpr.so.31.0.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++.so.1.54
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++.so.1.54.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_alts.so.1.54
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_alts.so.1.54.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_error_details.so.1.54
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_error_details.so.1.54.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_reflection.so.1.54
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_reflection.so.1.54.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_unsecure.so.1.54
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc++_unsecure.so.1.54.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc.so.31
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc.so.31.0.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc_authorization_provider.so.1.54
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc_authorization_provider.so.1.54.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc_plugin_support.so.1.54
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc_plugin_support.so.1.54.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc_unsecure.so.31
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpc_unsecure.so.31.0.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpcpp_channelz.so.1.54
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgrpcpp_channelz.so.1.54.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libupb.so.31
-/usr/lib64/glibc-hwcaps/x86-64-v3/libupb.so.31.0.0
+/V3/usr/lib64/libaddress_sorting.so.31
+/V3/usr/lib64/libaddress_sorting.so.31.0.0
+/V3/usr/lib64/libgpr.so.31
+/V3/usr/lib64/libgpr.so.31.0.0
+/V3/usr/lib64/libgrpc++.so.1.54
+/V3/usr/lib64/libgrpc++.so.1.54.0
+/V3/usr/lib64/libgrpc++_alts.so.1.54
+/V3/usr/lib64/libgrpc++_alts.so.1.54.0
+/V3/usr/lib64/libgrpc++_error_details.so.1.54
+/V3/usr/lib64/libgrpc++_error_details.so.1.54.0
+/V3/usr/lib64/libgrpc++_reflection.so.1.54
+/V3/usr/lib64/libgrpc++_reflection.so.1.54.0
+/V3/usr/lib64/libgrpc++_unsecure.so.1.54
+/V3/usr/lib64/libgrpc++_unsecure.so.1.54.0
+/V3/usr/lib64/libgrpc.so.31
+/V3/usr/lib64/libgrpc.so.31.0.0
+/V3/usr/lib64/libgrpc_authorization_provider.so.1.54
+/V3/usr/lib64/libgrpc_authorization_provider.so.1.54.0
+/V3/usr/lib64/libgrpc_plugin_support.so.1.54
+/V3/usr/lib64/libgrpc_plugin_support.so.1.54.0
+/V3/usr/lib64/libgrpc_unsecure.so.31
+/V3/usr/lib64/libgrpc_unsecure.so.31.0.0
+/V3/usr/lib64/libgrpcpp_channelz.so.1.54
+/V3/usr/lib64/libgrpcpp_channelz.so.1.54.0
+/V3/usr/lib64/libupb.so.31
+/V3/usr/lib64/libupb.so.31.0.0
 /usr/lib64/libaddress_sorting.so.31
 /usr/lib64/libaddress_sorting.so.31.0.0
 /usr/lib64/libgpr.so.31
