@@ -5,7 +5,7 @@
 #
 Name     : grpc
 Version  : 1.54.0
-Release  : 39
+Release  : 40
 URL      : https://github.com/grpc/grpc/archive/v1.54.0/grpc-1.54.0.tar.gz
 Source0  : https://github.com/grpc/grpc/archive/v1.54.0/grpc-1.54.0.tar.gz
 Source1  : https://github.com/census-instrumentation/opencensus-proto/archive/v0.3.0/opencensus-proto-0.3.0.tar.gz
@@ -98,7 +98,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1682977749
+export SOURCE_DATE_EPOCH=1685545110
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -149,7 +149,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1682977749
+export SOURCE_DATE_EPOCH=1685545110
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grpc
 cp %{_builddir}/grpc-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/grpc/242ec6abfdd8c114f2e803b84934469c299348fc || :
@@ -195,19 +195,6 @@ popd
 
 %files dev
 %defattr(-,root,root,-)
-/V3/usr/lib64/libaddress_sorting.so
-/V3/usr/lib64/libgpr.so
-/V3/usr/lib64/libgrpc++.so
-/V3/usr/lib64/libgrpc++_alts.so
-/V3/usr/lib64/libgrpc++_error_details.so
-/V3/usr/lib64/libgrpc++_reflection.so
-/V3/usr/lib64/libgrpc++_unsecure.so
-/V3/usr/lib64/libgrpc.so
-/V3/usr/lib64/libgrpc_authorization_provider.so
-/V3/usr/lib64/libgrpc_plugin_support.so
-/V3/usr/lib64/libgrpc_unsecure.so
-/V3/usr/lib64/libgrpcpp_channelz.so
-/V3/usr/lib64/libupb.so
 /usr/include/grpc++/alarm.h
 /usr/include/grpc++/channel.h
 /usr/include/grpc++/client_context.h
@@ -516,31 +503,18 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libaddress_sorting.so.31
 /V3/usr/lib64/libaddress_sorting.so.31.0.0
-/V3/usr/lib64/libgpr.so.31
 /V3/usr/lib64/libgpr.so.31.0.0
-/V3/usr/lib64/libgrpc++.so.1.54
 /V3/usr/lib64/libgrpc++.so.1.54.0
-/V3/usr/lib64/libgrpc++_alts.so.1.54
 /V3/usr/lib64/libgrpc++_alts.so.1.54.0
-/V3/usr/lib64/libgrpc++_error_details.so.1.54
 /V3/usr/lib64/libgrpc++_error_details.so.1.54.0
-/V3/usr/lib64/libgrpc++_reflection.so.1.54
 /V3/usr/lib64/libgrpc++_reflection.so.1.54.0
-/V3/usr/lib64/libgrpc++_unsecure.so.1.54
 /V3/usr/lib64/libgrpc++_unsecure.so.1.54.0
-/V3/usr/lib64/libgrpc.so.31
 /V3/usr/lib64/libgrpc.so.31.0.0
-/V3/usr/lib64/libgrpc_authorization_provider.so.1.54
 /V3/usr/lib64/libgrpc_authorization_provider.so.1.54.0
-/V3/usr/lib64/libgrpc_plugin_support.so.1.54
 /V3/usr/lib64/libgrpc_plugin_support.so.1.54.0
-/V3/usr/lib64/libgrpc_unsecure.so.31
 /V3/usr/lib64/libgrpc_unsecure.so.31.0.0
-/V3/usr/lib64/libgrpcpp_channelz.so.1.54
 /V3/usr/lib64/libgrpcpp_channelz.so.1.54.0
-/V3/usr/lib64/libupb.so.31
 /V3/usr/lib64/libupb.so.31.0.0
 /usr/lib64/libaddress_sorting.so.31
 /usr/lib64/libaddress_sorting.so.31.0.0
