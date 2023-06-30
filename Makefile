@@ -1,5 +1,5 @@
 PKG_NAME := grpc
-URL = https://github.com/grpc/grpc/archive/v1.55.1/grpc-1.55.1.tar.gz
+URL = https://github.com/grpc/grpc/archive/v1.54.0/grpc-1.54.0.tar.gz
 ARCHIVES = https://github.com/census-instrumentation/opencensus-proto/archive/v0.3.0/opencensus-proto-0.3.0.tar.gz third_party/opencensus-proto
 
 include ../common/Makefile.common
