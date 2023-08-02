@@ -4,10 +4,10 @@
 # Using build pattern: cmake
 #
 Name     : grpc
-Version  : 1.54.0
-Release  : 45
-URL      : https://github.com/grpc/grpc/archive/v1.54.0/grpc-1.54.0.tar.gz
-Source0  : https://github.com/grpc/grpc/archive/v1.54.0/grpc-1.54.0.tar.gz
+Version  : 1.56.2
+Release  : 46
+URL      : https://github.com/grpc/grpc/archive/v1.56.2/grpc-1.56.2.tar.gz
+Source0  : https://github.com/grpc/grpc/archive/v1.56.2/grpc-1.56.2.tar.gz
 Source1  : https://github.com/census-instrumentation/opencensus-proto/archive/v0.3.0/opencensus-proto-0.3.0.tar.gz
 Summary  : @PC_DESCRIPTION@
 Group    : Development/Tools
@@ -19,6 +19,7 @@ Requires: grpc-license = %{version}-%{release}
 BuildRequires : abseil-cpp-dev
 BuildRequires : buildreq-cmake
 BuildRequires : glibc-dev
+BuildRequires : googletest-dev
 BuildRequires : ninja
 BuildRequires : openssl-dev
 BuildRequires : pkg-config
@@ -27,6 +28,7 @@ BuildRequires : pkgconfig(libsystemd)
 BuildRequires : pkgconfig(openssl)
 BuildRequires : pkgconfig(protobuf)
 BuildRequires : pkgconfig(re2)
+BuildRequires : protobuf-staticdev
 BuildRequires : zlib-dev
 # Suppress stripping binaries
 %define __strip /bin/true
@@ -86,19 +88,19 @@ license components for the grpc package.
 
 
 %prep
-%setup -q -n grpc-1.54.0
+%setup -q -n grpc-1.56.2
 cd %{_builddir}
 tar xf %{_sourcedir}/opencensus-proto-0.3.0.tar.gz
-cd %{_builddir}/grpc-1.54.0
+cd %{_builddir}/grpc-1.56.2
 mkdir -p third_party/opencensus-proto
-cp -r %{_builddir}/opencensus-proto-0.3.0/* %{_builddir}/grpc-1.54.0/third_party/opencensus-proto
+cp -r %{_builddir}/opencensus-proto-0.3.0/* %{_builddir}/grpc-1.56.2/third_party/opencensus-proto
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1688157225
+export SOURCE_DATE_EPOCH=1690986371
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -149,16 +151,16 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1688157225
+export SOURCE_DATE_EPOCH=1690986371
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grpc
 cp %{_builddir}/grpc-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/grpc/242ec6abfdd8c114f2e803b84934469c299348fc || :
 cp %{_builddir}/grpc-%{version}/src/php/ext/grpc/LICENSE %{buildroot}/usr/share/package-licenses/grpc/7d96a2516756ac02b4f9c984bb0dc09773200a99 || :
 cp %{_builddir}/grpc-%{version}/third_party/address_sorting/LICENSE %{buildroot}/usr/share/package-licenses/grpc/aa0f4491c1110db68dd4e054555e255fd470d4f6 || :
-cp %{_builddir}/grpc-%{version}/third_party/toolchains/rbe_ubuntu1804/LICENSE %{buildroot}/usr/share/package-licenses/grpc/0590bc7a4e55e5f4d7b94045ee76e35914bcb614 || :
+cp %{_builddir}/grpc-%{version}/third_party/toolchains/rbe_ubuntu2004/LICENSE %{buildroot}/usr/share/package-licenses/grpc/0590bc7a4e55e5f4d7b94045ee76e35914bcb614 || :
 cp %{_builddir}/grpc-%{version}/third_party/upb/LICENSE %{buildroot}/usr/share/package-licenses/grpc/fba6d7b2309d43e312f2e9c3efed78d813cc15f7 || :
 cp %{_builddir}/grpc-%{version}/third_party/upb/third_party/lunit/LICENSE %{buildroot}/usr/share/package-licenses/grpc/fdd1d72fcc979c32a5ab8ae278a2dfd967faf820 || :
-cp %{_builddir}/grpc-%{version}/third_party/upb/third_party/utf8_range/LICENSE %{buildroot}/usr/share/package-licenses/grpc/0e34dfdd1bf9f8645ca4a62f06667167aee0d872 || :
+cp %{_builddir}/grpc-%{version}/third_party/utf8_range/LICENSE %{buildroot}/usr/share/package-licenses/grpc/252c7fd154ca740ae6f765d206fbd9119108a0e3 || :
 cp %{_builddir}/grpc-%{version}/third_party/xxhash/LICENSE %{buildroot}/usr/share/package-licenses/grpc/d6cf8b65815efff8a46def3ec4c74c57033d25fa || :
 cp %{_builddir}/opencensus-proto-0.3.0/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
 pushd clr-build-avx2
@@ -286,6 +288,7 @@ popd
 /usr/include/grpc/event_engine/slice_buffer.h
 /usr/include/grpc/fork.h
 /usr/include/grpc/grpc.h
+/usr/include/grpc/grpc_audit_logging.h
 /usr/include/grpc/grpc_posix.h
 /usr/include/grpc/grpc_security.h
 /usr/include/grpc/grpc_security_constants.h
@@ -326,6 +329,7 @@ popd
 /usr/include/grpc/support/atm_gcc_sync.h
 /usr/include/grpc/support/atm_windows.h
 /usr/include/grpc/support/cpu.h
+/usr/include/grpc/support/json.h
 /usr/include/grpc/support/log.h
 /usr/include/grpc/support/log_windows.h
 /usr/include/grpc/support/port_platform.h
@@ -432,6 +436,7 @@ popd
 /usr/include/grpcpp/resource_quota.h
 /usr/include/grpcpp/security/alts_context.h
 /usr/include/grpcpp/security/alts_util.h
+/usr/include/grpcpp/security/audit_logging.h
 /usr/include/grpcpp/security/auth_context.h
 /usr/include/grpcpp/security/auth_metadata_processor.h
 /usr/include/grpcpp/security/authorization_policy_provider.h
@@ -503,51 +508,51 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libaddress_sorting.so.31.0.0
-/V3/usr/lib64/libgpr.so.31.0.0
-/V3/usr/lib64/libgrpc++.so.1.54.0
-/V3/usr/lib64/libgrpc++_alts.so.1.54.0
-/V3/usr/lib64/libgrpc++_error_details.so.1.54.0
-/V3/usr/lib64/libgrpc++_reflection.so.1.54.0
-/V3/usr/lib64/libgrpc++_unsecure.so.1.54.0
-/V3/usr/lib64/libgrpc.so.31.0.0
-/V3/usr/lib64/libgrpc_authorization_provider.so.1.54.0
-/V3/usr/lib64/libgrpc_plugin_support.so.1.54.0
-/V3/usr/lib64/libgrpc_unsecure.so.31.0.0
-/V3/usr/lib64/libgrpcpp_channelz.so.1.54.0
-/V3/usr/lib64/libupb.so.31.0.0
-/usr/lib64/libaddress_sorting.so.31
-/usr/lib64/libaddress_sorting.so.31.0.0
-/usr/lib64/libgpr.so.31
-/usr/lib64/libgpr.so.31.0.0
-/usr/lib64/libgrpc++.so.1.54
-/usr/lib64/libgrpc++.so.1.54.0
-/usr/lib64/libgrpc++_alts.so.1.54
-/usr/lib64/libgrpc++_alts.so.1.54.0
-/usr/lib64/libgrpc++_error_details.so.1.54
-/usr/lib64/libgrpc++_error_details.so.1.54.0
-/usr/lib64/libgrpc++_reflection.so.1.54
-/usr/lib64/libgrpc++_reflection.so.1.54.0
-/usr/lib64/libgrpc++_unsecure.so.1.54
-/usr/lib64/libgrpc++_unsecure.so.1.54.0
-/usr/lib64/libgrpc.so.31
-/usr/lib64/libgrpc.so.31.0.0
-/usr/lib64/libgrpc_authorization_provider.so.1.54
-/usr/lib64/libgrpc_authorization_provider.so.1.54.0
-/usr/lib64/libgrpc_plugin_support.so.1.54
-/usr/lib64/libgrpc_plugin_support.so.1.54.0
-/usr/lib64/libgrpc_unsecure.so.31
-/usr/lib64/libgrpc_unsecure.so.31.0.0
-/usr/lib64/libgrpcpp_channelz.so.1.54
-/usr/lib64/libgrpcpp_channelz.so.1.54.0
-/usr/lib64/libupb.so.31
-/usr/lib64/libupb.so.31.0.0
+/V3/usr/lib64/libaddress_sorting.so.33.0.0
+/V3/usr/lib64/libgpr.so.33.0.0
+/V3/usr/lib64/libgrpc++.so.1.56.2
+/V3/usr/lib64/libgrpc++_alts.so.1.56.2
+/V3/usr/lib64/libgrpc++_error_details.so.1.56.2
+/V3/usr/lib64/libgrpc++_reflection.so.1.56.2
+/V3/usr/lib64/libgrpc++_unsecure.so.1.56.2
+/V3/usr/lib64/libgrpc.so.33.0.0
+/V3/usr/lib64/libgrpc_authorization_provider.so.1.56.2
+/V3/usr/lib64/libgrpc_plugin_support.so.1.56.2
+/V3/usr/lib64/libgrpc_unsecure.so.33.0.0
+/V3/usr/lib64/libgrpcpp_channelz.so.1.56.2
+/V3/usr/lib64/libupb.so.33.0.0
+/usr/lib64/libaddress_sorting.so.33
+/usr/lib64/libaddress_sorting.so.33.0.0
+/usr/lib64/libgpr.so.33
+/usr/lib64/libgpr.so.33.0.0
+/usr/lib64/libgrpc++.so.1.56
+/usr/lib64/libgrpc++.so.1.56.2
+/usr/lib64/libgrpc++_alts.so.1.56
+/usr/lib64/libgrpc++_alts.so.1.56.2
+/usr/lib64/libgrpc++_error_details.so.1.56
+/usr/lib64/libgrpc++_error_details.so.1.56.2
+/usr/lib64/libgrpc++_reflection.so.1.56
+/usr/lib64/libgrpc++_reflection.so.1.56.2
+/usr/lib64/libgrpc++_unsecure.so.1.56
+/usr/lib64/libgrpc++_unsecure.so.1.56.2
+/usr/lib64/libgrpc.so.33
+/usr/lib64/libgrpc.so.33.0.0
+/usr/lib64/libgrpc_authorization_provider.so.1.56
+/usr/lib64/libgrpc_authorization_provider.so.1.56.2
+/usr/lib64/libgrpc_plugin_support.so.1.56
+/usr/lib64/libgrpc_plugin_support.so.1.56.2
+/usr/lib64/libgrpc_unsecure.so.33
+/usr/lib64/libgrpc_unsecure.so.33.0.0
+/usr/lib64/libgrpcpp_channelz.so.1.56
+/usr/lib64/libgrpcpp_channelz.so.1.56.2
+/usr/lib64/libupb.so.33
+/usr/lib64/libupb.so.33.0.0
 
 %files license
 %defattr(0644,root,root,0755)
 /usr/share/package-licenses/grpc/0590bc7a4e55e5f4d7b94045ee76e35914bcb614
-/usr/share/package-licenses/grpc/0e34dfdd1bf9f8645ca4a62f06667167aee0d872
 /usr/share/package-licenses/grpc/242ec6abfdd8c114f2e803b84934469c299348fc
+/usr/share/package-licenses/grpc/252c7fd154ca740ae6f765d206fbd9119108a0e3
 /usr/share/package-licenses/grpc/2b8b815229aa8a61e483fb4ba0588b8b6c491890
 /usr/share/package-licenses/grpc/7d96a2516756ac02b4f9c984bb0dc09773200a99
 /usr/share/package-licenses/grpc/aa0f4491c1110db68dd4e054555e255fd470d4f6
