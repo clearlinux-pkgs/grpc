@@ -5,7 +5,7 @@
 #
 Name     : grpc
 Version  : 1.56.2
-Release  : 51
+Release  : 52
 URL      : https://github.com/grpc/grpc/archive/v1.56.2/grpc-1.56.2.tar.gz
 Source0  : https://github.com/grpc/grpc/archive/v1.56.2/grpc-1.56.2.tar.gz
 Source1  : https://github.com/census-instrumentation/opencensus-proto/archive/v0.3.0/opencensus-proto-0.3.0.tar.gz
