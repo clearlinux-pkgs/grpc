@@ -2,4 +2,4 @@
 # picked up automatically. One name per line, no whitespace.
 abseil-cpp-dev
 ninja
-protobuf-staticdev
+protobuf-dev
