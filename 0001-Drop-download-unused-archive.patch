@@ -1,0 +1,32 @@
+From 59c051e311103c9185961a4ac8b78dcd65224d18 Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Fri, 12 Jul 2024 09:07:22 -0700
+Subject: [PATCH] Drop download unused archive
+
+---
+ CMakeLists.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4e26c3c..f3e8918 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -430,6 +430,7 @@ if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/googleapis AND gRPC_DOWNL
+     googleapis-2f9af297c84c55c8b871ba4495e01ade42476c92
+   )
+ endif()
++if (FALSE)
+ # Setup external proto library at third_party/opencensus-proto/src with 2 download URLs
+ if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/opencensus-proto/src AND gRPC_DOWNLOAD_ARCHIVES)
+   # Download the archive via HTTP, validate the checksum, and extract to third_party/opencensus-proto/src.
+@@ -449,6 +450,7 @@ if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/opencensus-proto/src AND
+     opencensus-proto-0.3.0/src
+   )
+ endif()
++endif()
+ # Setup external proto library at third_party/xds with 2 download URLs
+ if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/xds AND gRPC_DOWNLOAD_ARCHIVES)
+   # Download the archive via HTTP, validate the checksum, and extract to third_party/xds.
+-- 
+2.45.2
+

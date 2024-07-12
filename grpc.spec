@@ -7,7 +7,7 @@
 #
 Name     : grpc
 Version  : 1.65.0
-Release  : 61
+Release  : 62
 URL      : https://github.com/grpc/grpc/archive/v1.65.0/grpc-1.65.0.tar.gz
 Source0  : https://github.com/grpc/grpc/archive/v1.65.0/grpc-1.65.0.tar.gz
 Source1  : https://github.com/census-instrumentation/opencensus-proto/archive/v0.3.0/opencensus-proto-0.3.0.tar.gz
@@ -35,6 +35,7 @@ BuildRequires : zlib-dev
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
+Patch1: 0001-Drop-download-unused-archive.patch
 
 %description
 The status.proto file is copied from
@@ -96,6 +97,7 @@ tar xf %{_sourcedir}/opencensus-proto-0.3.0.tar.gz
 cd %{_builddir}/grpc-1.65.0
 mkdir -p third_party/opencensus-proto
 cp -r %{_builddir}/opencensus-proto-0.3.0/* %{_builddir}/grpc-1.65.0/third_party/opencensus-proto
+%patch -P 1 -p1
 pushd ..
 cp -a grpc-1.65.0 buildavx2
 popd
@@ -105,7 +107,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1720801138
+export SOURCE_DATE_EPOCH=1720801999
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -202,7 +204,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1720801138
+export SOURCE_DATE_EPOCH=1720801999
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grpc
 cp %{_builddir}/grpc-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/grpc/242ec6abfdd8c114f2e803b84934469c299348fc || :
