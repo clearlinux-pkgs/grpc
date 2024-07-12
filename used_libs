@@ -7,7 +7,9 @@ libabsl_flags_marshalling.so.2401.0.0
 libabsl_flags_reflection.so.2401.0.0
 libabsl_hash.so.2401.0.0
 libabsl_kernel_timeout_internal.so.2401.0.0
+libabsl_log_globals.so.2401.0.0
 libabsl_log_internal_check_op.so.2401.0.0
+libabsl_log_internal_conditions.so.2401.0.0
 libabsl_log_internal_message.so.2401.0.0
 libabsl_log_internal_nullguard.so.2401.0.0
 libabsl_random_internal_pool_urbg.so.2401.0.0
