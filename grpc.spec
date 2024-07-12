@@ -7,7 +7,7 @@
 #
 Name     : grpc
 Version  : 1.65.0
-Release  : 62
+Release  : 63
 URL      : https://github.com/grpc/grpc/archive/v1.65.0/grpc-1.65.0.tar.gz
 Source0  : https://github.com/grpc/grpc/archive/v1.65.0/grpc-1.65.0.tar.gz
 Source1  : https://github.com/census-instrumentation/opencensus-proto/archive/v0.3.0/opencensus-proto-0.3.0.tar.gz
@@ -107,7 +107,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1720801999
+export SOURCE_DATE_EPOCH=1720802637
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -204,7 +204,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1720801999
+export SOURCE_DATE_EPOCH=1720802637
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grpc
 cp %{_builddir}/grpc-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/grpc/242ec6abfdd8c114f2e803b84934469c299348fc || :
@@ -226,6 +226,8 @@ GOAMD64=v2
 pushd clr-build
 %make_install prefix=%{buildroot}/usr
 popd
+## Remove excluded files
+rm -f %{buildroot}*/usr/lib64/pkgconfig/grpcpp_otel_plugin.pc
 /usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
@@ -576,7 +578,6 @@ popd
 /usr/lib64/pkgconfig/grpc++_unsecure.pc
 /usr/lib64/pkgconfig/grpc.pc
 /usr/lib64/pkgconfig/grpc_unsecure.pc
-/usr/lib64/pkgconfig/grpcpp_otel_plugin.pc
 
 %files lib
 %defattr(-,root,root,-)
