@@ -6,10 +6,10 @@
 # autospec commit: f35655a
 #
 Name     : grpc
-Version  : 1.65.5
-Release  : 70
-URL      : https://github.com/grpc/grpc/archive/v1.65.5/grpc-1.65.5.tar.gz
-Source0  : https://github.com/grpc/grpc/archive/v1.65.5/grpc-1.65.5.tar.gz
+Version  : 1.66.0
+Release  : 71
+URL      : https://github.com/grpc/grpc/archive/v1.66.0/grpc-1.66.0.tar.gz
+Source0  : https://github.com/grpc/grpc/archive/v1.66.0/grpc-1.66.0.tar.gz
 Source1  : https://github.com/census-instrumentation/opencensus-proto/archive/v0.3.0/opencensus-proto-0.3.0.tar.gz
 Summary  : @PC_DESCRIPTION@
 Group    : Development/Tools
@@ -91,15 +91,15 @@ license components for the grpc package.
 
 
 %prep
-%setup -q -n grpc-1.65.5
+%setup -q -n grpc-1.66.0
 cd %{_builddir}
 tar xf %{_sourcedir}/opencensus-proto-0.3.0.tar.gz
-cd %{_builddir}/grpc-1.65.5
+cd %{_builddir}/grpc-1.66.0
 mkdir -p third_party/opencensus-proto
-cp -r %{_builddir}/opencensus-proto-0.3.0/* %{_builddir}/grpc-1.65.5/third_party/opencensus-proto
+cp -r %{_builddir}/opencensus-proto-0.3.0/* %{_builddir}/grpc-1.66.0/third_party/opencensus-proto
 %patch -P 1 -p1
 pushd ..
-cp -a grpc-1.65.5 buildavx2
+cp -a grpc-1.66.0 buildavx2
 popd
 
 %build
@@ -107,7 +107,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1723860917
+export SOURCE_DATE_EPOCH=1724369187
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -204,7 +204,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1723860917
+export SOURCE_DATE_EPOCH=1724369187
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grpc
 cp %{_builddir}/grpc-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/grpc/242ec6abfdd8c114f2e803b84934469c299348fc || :
@@ -422,7 +422,9 @@ rm -f %{buildroot}*/usr/lib64/pkgconfig/grpcpp_otel_plugin.pc
 /usr/include/grpcpp/ext/proto_server_reflection_plugin.h
 /usr/include/grpcpp/ext/server_metric_recorder.h
 /usr/include/grpcpp/generic/async_generic_service.h
+/usr/include/grpcpp/generic/callback_generic_service.h
 /usr/include/grpcpp/generic/generic_stub.h
+/usr/include/grpcpp/generic/generic_stub_callback.h
 /usr/include/grpcpp/grpcpp.h
 /usr/include/grpcpp/health_check_service_interface.h
 /usr/include/grpcpp/impl/call.h
@@ -483,6 +485,7 @@ rm -f %{buildroot}*/usr/lib64/pkgconfig/grpcpp_otel_plugin.pc
 /usr/include/grpcpp/impl/completion_queue_tag.h
 /usr/include/grpcpp/impl/create_auth_context.h
 /usr/include/grpcpp/impl/delegating_channel.h
+/usr/include/grpcpp/impl/generic_stub_internal.h
 /usr/include/grpcpp/impl/grpc_library.h
 /usr/include/grpcpp/impl/intercepted_channel.h
 /usr/include/grpcpp/impl/interceptor_common.h
@@ -571,7 +574,9 @@ rm -f %{buildroot}*/usr/lib64/pkgconfig/grpcpp_otel_plugin.pc
 /usr/lib64/libupb_json_lib.so
 /usr/lib64/libupb_mem_lib.so
 /usr/lib64/libupb_message_lib.so
+/usr/lib64/libupb_mini_descriptor_lib.so
 /usr/lib64/libupb_textformat_lib.so
+/usr/lib64/libupb_wire_lib.so
 /usr/lib64/libutf8_range_lib.so
 /usr/lib64/pkgconfig/gpr.pc
 /usr/lib64/pkgconfig/grpc++.pc
@@ -581,60 +586,66 @@ rm -f %{buildroot}*/usr/lib64/pkgconfig/grpcpp_otel_plugin.pc
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libaddress_sorting.so.42.0.0
-/V3/usr/lib64/libgpr.so.42.0.0
-/V3/usr/lib64/libgrpc++.so.1.65.5
-/V3/usr/lib64/libgrpc++_alts.so.1.65.5
-/V3/usr/lib64/libgrpc++_error_details.so.1.65.5
-/V3/usr/lib64/libgrpc++_reflection.so.1.65.5
-/V3/usr/lib64/libgrpc++_unsecure.so.1.65.5
-/V3/usr/lib64/libgrpc.so.42.0.0
-/V3/usr/lib64/libgrpc_authorization_provider.so.1.65.5
-/V3/usr/lib64/libgrpc_plugin_support.so.1.65.5
-/V3/usr/lib64/libgrpc_unsecure.so.42.0.0
-/V3/usr/lib64/libgrpcpp_channelz.so.1.65.5
-/V3/usr/lib64/libupb_base_lib.so.42.0.0
-/V3/usr/lib64/libupb_json_lib.so.42.0.0
-/V3/usr/lib64/libupb_mem_lib.so.42.0.0
-/V3/usr/lib64/libupb_message_lib.so.42.0.0
-/V3/usr/lib64/libupb_textformat_lib.so.42.0.0
-/V3/usr/lib64/libutf8_range_lib.so.42.0.0
-/usr/lib64/libaddress_sorting.so.42
-/usr/lib64/libaddress_sorting.so.42.0.0
-/usr/lib64/libgpr.so.42
-/usr/lib64/libgpr.so.42.0.0
-/usr/lib64/libgrpc++.so.1.65
-/usr/lib64/libgrpc++.so.1.65.5
-/usr/lib64/libgrpc++_alts.so.1.65
-/usr/lib64/libgrpc++_alts.so.1.65.5
-/usr/lib64/libgrpc++_error_details.so.1.65
-/usr/lib64/libgrpc++_error_details.so.1.65.5
-/usr/lib64/libgrpc++_reflection.so.1.65
-/usr/lib64/libgrpc++_reflection.so.1.65.5
-/usr/lib64/libgrpc++_unsecure.so.1.65
-/usr/lib64/libgrpc++_unsecure.so.1.65.5
-/usr/lib64/libgrpc.so.42
-/usr/lib64/libgrpc.so.42.0.0
-/usr/lib64/libgrpc_authorization_provider.so.1.65
-/usr/lib64/libgrpc_authorization_provider.so.1.65.5
-/usr/lib64/libgrpc_plugin_support.so.1.65
-/usr/lib64/libgrpc_plugin_support.so.1.65.5
-/usr/lib64/libgrpc_unsecure.so.42
-/usr/lib64/libgrpc_unsecure.so.42.0.0
-/usr/lib64/libgrpcpp_channelz.so.1.65
-/usr/lib64/libgrpcpp_channelz.so.1.65.5
-/usr/lib64/libupb_base_lib.so.42
-/usr/lib64/libupb_base_lib.so.42.0.0
-/usr/lib64/libupb_json_lib.so.42
-/usr/lib64/libupb_json_lib.so.42.0.0
-/usr/lib64/libupb_mem_lib.so.42
-/usr/lib64/libupb_mem_lib.so.42.0.0
-/usr/lib64/libupb_message_lib.so.42
-/usr/lib64/libupb_message_lib.so.42.0.0
-/usr/lib64/libupb_textformat_lib.so.42
-/usr/lib64/libupb_textformat_lib.so.42.0.0
-/usr/lib64/libutf8_range_lib.so.42
-/usr/lib64/libutf8_range_lib.so.42.0.0
+/V3/usr/lib64/libaddress_sorting.so.43.0.0
+/V3/usr/lib64/libgpr.so.43.0.0
+/V3/usr/lib64/libgrpc++.so.1.66.0
+/V3/usr/lib64/libgrpc++_alts.so.1.66.0
+/V3/usr/lib64/libgrpc++_error_details.so.1.66.0
+/V3/usr/lib64/libgrpc++_reflection.so.1.66.0
+/V3/usr/lib64/libgrpc++_unsecure.so.1.66.0
+/V3/usr/lib64/libgrpc.so.43.0.0
+/V3/usr/lib64/libgrpc_authorization_provider.so.1.66.0
+/V3/usr/lib64/libgrpc_plugin_support.so.1.66.0
+/V3/usr/lib64/libgrpc_unsecure.so.43.0.0
+/V3/usr/lib64/libgrpcpp_channelz.so.1.66.0
+/V3/usr/lib64/libupb_base_lib.so.43.0.0
+/V3/usr/lib64/libupb_json_lib.so.43.0.0
+/V3/usr/lib64/libupb_mem_lib.so.43.0.0
+/V3/usr/lib64/libupb_message_lib.so.43.0.0
+/V3/usr/lib64/libupb_mini_descriptor_lib.so.43.0.0
+/V3/usr/lib64/libupb_textformat_lib.so.43.0.0
+/V3/usr/lib64/libupb_wire_lib.so.43.0.0
+/V3/usr/lib64/libutf8_range_lib.so.43.0.0
+/usr/lib64/libaddress_sorting.so.43
+/usr/lib64/libaddress_sorting.so.43.0.0
+/usr/lib64/libgpr.so.43
+/usr/lib64/libgpr.so.43.0.0
+/usr/lib64/libgrpc++.so.1.66
+/usr/lib64/libgrpc++.so.1.66.0
+/usr/lib64/libgrpc++_alts.so.1.66
+/usr/lib64/libgrpc++_alts.so.1.66.0
+/usr/lib64/libgrpc++_error_details.so.1.66
+/usr/lib64/libgrpc++_error_details.so.1.66.0
+/usr/lib64/libgrpc++_reflection.so.1.66
+/usr/lib64/libgrpc++_reflection.so.1.66.0
+/usr/lib64/libgrpc++_unsecure.so.1.66
+/usr/lib64/libgrpc++_unsecure.so.1.66.0
+/usr/lib64/libgrpc.so.43
+/usr/lib64/libgrpc.so.43.0.0
+/usr/lib64/libgrpc_authorization_provider.so.1.66
+/usr/lib64/libgrpc_authorization_provider.so.1.66.0
+/usr/lib64/libgrpc_plugin_support.so.1.66
+/usr/lib64/libgrpc_plugin_support.so.1.66.0
+/usr/lib64/libgrpc_unsecure.so.43
+/usr/lib64/libgrpc_unsecure.so.43.0.0
+/usr/lib64/libgrpcpp_channelz.so.1.66
+/usr/lib64/libgrpcpp_channelz.so.1.66.0
+/usr/lib64/libupb_base_lib.so.43
+/usr/lib64/libupb_base_lib.so.43.0.0
+/usr/lib64/libupb_json_lib.so.43
+/usr/lib64/libupb_json_lib.so.43.0.0
+/usr/lib64/libupb_mem_lib.so.43
+/usr/lib64/libupb_mem_lib.so.43.0.0
+/usr/lib64/libupb_message_lib.so.43
+/usr/lib64/libupb_message_lib.so.43.0.0
+/usr/lib64/libupb_mini_descriptor_lib.so.43
+/usr/lib64/libupb_mini_descriptor_lib.so.43.0.0
+/usr/lib64/libupb_textformat_lib.so.43
+/usr/lib64/libupb_textformat_lib.so.43.0.0
+/usr/lib64/libupb_wire_lib.so.43
+/usr/lib64/libupb_wire_lib.so.43.0.0
+/usr/lib64/libutf8_range_lib.so.43
+/usr/lib64/libutf8_range_lib.so.43.0.0
 
 %files license
 %defattr(0644,root,root,0755)
