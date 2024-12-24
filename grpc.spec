@@ -6,10 +6,10 @@
 # autospec commit: 5424026
 #
 Name     : grpc
-Version  : 1.68.2
-Release  : 80
-URL      : https://github.com/grpc/grpc/archive/v1.68.2/grpc-1.68.2.tar.gz
-Source0  : https://github.com/grpc/grpc/archive/v1.68.2/grpc-1.68.2.tar.gz
+Version  : 1.69.0
+Release  : 81
+URL      : https://github.com/grpc/grpc/archive/v1.69.0/grpc-1.69.0.tar.gz
+Source0  : https://github.com/grpc/grpc/archive/v1.69.0/grpc-1.69.0.tar.gz
 Source1  : https://github.com/census-instrumentation/opencensus-proto/archive/v0.3.0/opencensus-proto-0.3.0.tar.gz
 Summary  : @PC_DESCRIPTION@
 Group    : Development/Tools
@@ -91,15 +91,15 @@ license components for the grpc package.
 
 
 %prep
-%setup -q -n grpc-1.68.2
+%setup -q -n grpc-1.69.0
 cd %{_builddir}
 tar xf %{_sourcedir}/opencensus-proto-0.3.0.tar.gz
-cd %{_builddir}/grpc-1.68.2
+cd %{_builddir}/grpc-1.69.0
 mkdir -p third_party/opencensus-proto
-cp -r %{_builddir}/opencensus-proto-0.3.0/* %{_builddir}/grpc-1.68.2/third_party/opencensus-proto
+cp -r %{_builddir}/opencensus-proto-0.3.0/* %{_builddir}/grpc-1.69.0/third_party/opencensus-proto
 %patch -P 1 -p1
 pushd ..
-cp -a grpc-1.68.2 buildavx2
+cp -a grpc-1.69.0 buildavx2
 popd
 
 %build
@@ -107,7 +107,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1733322950
+export SOURCE_DATE_EPOCH=1735081581
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -204,14 +204,14 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1733322950
+export SOURCE_DATE_EPOCH=1735081581
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grpc
 cp %{_builddir}/grpc-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/grpc/242ec6abfdd8c114f2e803b84934469c299348fc || :
 cp %{_builddir}/grpc-%{version}/src/php/ext/grpc/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
 cp %{_builddir}/grpc-%{version}/third_party/address_sorting/LICENSE %{buildroot}/usr/share/package-licenses/grpc/aa0f4491c1110db68dd4e054555e255fd470d4f6 || :
 cp %{_builddir}/grpc-%{version}/third_party/toolchains/rbe_ubuntu2004/LICENSE %{buildroot}/usr/share/package-licenses/grpc/0590bc7a4e55e5f4d7b94045ee76e35914bcb614 || :
-cp %{_builddir}/grpc-%{version}/third_party/toolchains/rbe_windows_bazel_6.3.2_vs2019/LICENSE %{buildroot}/usr/share/package-licenses/grpc/0590bc7a4e55e5f4d7b94045ee76e35914bcb614 || :
+cp %{_builddir}/grpc-%{version}/third_party/toolchains/rbe_windows_bazel_7.3.1_vs2022/LICENSE %{buildroot}/usr/share/package-licenses/grpc/0590bc7a4e55e5f4d7b94045ee76e35914bcb614 || :
 cp %{_builddir}/grpc-%{version}/third_party/utf8_range/LICENSE %{buildroot}/usr/share/package-licenses/grpc/252c7fd154ca740ae6f765d206fbd9119108a0e3 || :
 cp %{_builddir}/grpc-%{version}/third_party/xxhash/LICENSE %{buildroot}/usr/share/package-licenses/grpc/d6cf8b65815efff8a46def3ec4c74c57033d25fa || :
 cp %{_builddir}/opencensus-proto-0.3.0/LICENSE %{buildroot}/usr/share/package-licenses/grpc/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
@@ -484,6 +484,7 @@ rm -f %{buildroot}*/usr/lib64/pkgconfig/grpcpp_otel_plugin.pc
 /usr/include/grpcpp/impl/completion_queue_tag.h
 /usr/include/grpcpp/impl/create_auth_context.h
 /usr/include/grpcpp/impl/delegating_channel.h
+/usr/include/grpcpp/impl/generic_serialize.h
 /usr/include/grpcpp/impl/generic_stub_internal.h
 /usr/include/grpcpp/impl/grpc_library.h
 /usr/include/grpcpp/impl/intercepted_channel.h
@@ -584,66 +585,66 @@ rm -f %{buildroot}*/usr/lib64/pkgconfig/grpcpp_otel_plugin.pc
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libaddress_sorting.so.44.1.1
-/V3/usr/lib64/libgpr.so.44.1.1
-/V3/usr/lib64/libgrpc++.so.1.68.2
-/V3/usr/lib64/libgrpc++_alts.so.1.68.2
-/V3/usr/lib64/libgrpc++_error_details.so.1.68.2
-/V3/usr/lib64/libgrpc++_reflection.so.1.68.2
-/V3/usr/lib64/libgrpc++_unsecure.so.1.68.2
-/V3/usr/lib64/libgrpc.so.44.1.1
-/V3/usr/lib64/libgrpc_authorization_provider.so.1.68.2
-/V3/usr/lib64/libgrpc_plugin_support.so.1.68.2
-/V3/usr/lib64/libgrpc_unsecure.so.44.1.1
-/V3/usr/lib64/libgrpcpp_channelz.so.1.68.2
-/V3/usr/lib64/libupb_base_lib.so.44.1.1
-/V3/usr/lib64/libupb_json_lib.so.44.1.1
-/V3/usr/lib64/libupb_mem_lib.so.44.1.1
-/V3/usr/lib64/libupb_message_lib.so.44.1.1
-/V3/usr/lib64/libupb_mini_descriptor_lib.so.44.1.1
-/V3/usr/lib64/libupb_textformat_lib.so.44.1.1
-/V3/usr/lib64/libupb_wire_lib.so.44.1.1
-/V3/usr/lib64/libutf8_range_lib.so.44.1.1
+/V3/usr/lib64/libaddress_sorting.so.44.2.0
+/V3/usr/lib64/libgpr.so.44.2.0
+/V3/usr/lib64/libgrpc++.so.1.69.0
+/V3/usr/lib64/libgrpc++_alts.so.1.69.0
+/V3/usr/lib64/libgrpc++_error_details.so.1.69.0
+/V3/usr/lib64/libgrpc++_reflection.so.1.69.0
+/V3/usr/lib64/libgrpc++_unsecure.so.1.69.0
+/V3/usr/lib64/libgrpc.so.44.2.0
+/V3/usr/lib64/libgrpc_authorization_provider.so.1.69.0
+/V3/usr/lib64/libgrpc_plugin_support.so.1.69.0
+/V3/usr/lib64/libgrpc_unsecure.so.44.2.0
+/V3/usr/lib64/libgrpcpp_channelz.so.1.69.0
+/V3/usr/lib64/libupb_base_lib.so.44.2.0
+/V3/usr/lib64/libupb_json_lib.so.44.2.0
+/V3/usr/lib64/libupb_mem_lib.so.44.2.0
+/V3/usr/lib64/libupb_message_lib.so.44.2.0
+/V3/usr/lib64/libupb_mini_descriptor_lib.so.44.2.0
+/V3/usr/lib64/libupb_textformat_lib.so.44.2.0
+/V3/usr/lib64/libupb_wire_lib.so.44.2.0
+/V3/usr/lib64/libutf8_range_lib.so.44.2.0
 /usr/lib64/libaddress_sorting.so.44
-/usr/lib64/libaddress_sorting.so.44.1.1
+/usr/lib64/libaddress_sorting.so.44.2.0
 /usr/lib64/libgpr.so.44
-/usr/lib64/libgpr.so.44.1.1
-/usr/lib64/libgrpc++.so.1.68
-/usr/lib64/libgrpc++.so.1.68.2
-/usr/lib64/libgrpc++_alts.so.1.68
-/usr/lib64/libgrpc++_alts.so.1.68.2
-/usr/lib64/libgrpc++_error_details.so.1.68
-/usr/lib64/libgrpc++_error_details.so.1.68.2
-/usr/lib64/libgrpc++_reflection.so.1.68
-/usr/lib64/libgrpc++_reflection.so.1.68.2
-/usr/lib64/libgrpc++_unsecure.so.1.68
-/usr/lib64/libgrpc++_unsecure.so.1.68.2
+/usr/lib64/libgpr.so.44.2.0
+/usr/lib64/libgrpc++.so.1.69
+/usr/lib64/libgrpc++.so.1.69.0
+/usr/lib64/libgrpc++_alts.so.1.69
+/usr/lib64/libgrpc++_alts.so.1.69.0
+/usr/lib64/libgrpc++_error_details.so.1.69
+/usr/lib64/libgrpc++_error_details.so.1.69.0
+/usr/lib64/libgrpc++_reflection.so.1.69
+/usr/lib64/libgrpc++_reflection.so.1.69.0
+/usr/lib64/libgrpc++_unsecure.so.1.69
+/usr/lib64/libgrpc++_unsecure.so.1.69.0
 /usr/lib64/libgrpc.so.44
-/usr/lib64/libgrpc.so.44.1.1
-/usr/lib64/libgrpc_authorization_provider.so.1.68
-/usr/lib64/libgrpc_authorization_provider.so.1.68.2
-/usr/lib64/libgrpc_plugin_support.so.1.68
-/usr/lib64/libgrpc_plugin_support.so.1.68.2
+/usr/lib64/libgrpc.so.44.2.0
+/usr/lib64/libgrpc_authorization_provider.so.1.69
+/usr/lib64/libgrpc_authorization_provider.so.1.69.0
+/usr/lib64/libgrpc_plugin_support.so.1.69
+/usr/lib64/libgrpc_plugin_support.so.1.69.0
 /usr/lib64/libgrpc_unsecure.so.44
-/usr/lib64/libgrpc_unsecure.so.44.1.1
-/usr/lib64/libgrpcpp_channelz.so.1.68
-/usr/lib64/libgrpcpp_channelz.so.1.68.2
+/usr/lib64/libgrpc_unsecure.so.44.2.0
+/usr/lib64/libgrpcpp_channelz.so.1.69
+/usr/lib64/libgrpcpp_channelz.so.1.69.0
 /usr/lib64/libupb_base_lib.so.44
-/usr/lib64/libupb_base_lib.so.44.1.1
+/usr/lib64/libupb_base_lib.so.44.2.0
 /usr/lib64/libupb_json_lib.so.44
-/usr/lib64/libupb_json_lib.so.44.1.1
+/usr/lib64/libupb_json_lib.so.44.2.0
 /usr/lib64/libupb_mem_lib.so.44
-/usr/lib64/libupb_mem_lib.so.44.1.1
+/usr/lib64/libupb_mem_lib.so.44.2.0
 /usr/lib64/libupb_message_lib.so.44
-/usr/lib64/libupb_message_lib.so.44.1.1
+/usr/lib64/libupb_message_lib.so.44.2.0
 /usr/lib64/libupb_mini_descriptor_lib.so.44
-/usr/lib64/libupb_mini_descriptor_lib.so.44.1.1
+/usr/lib64/libupb_mini_descriptor_lib.so.44.2.0
 /usr/lib64/libupb_textformat_lib.so.44
-/usr/lib64/libupb_textformat_lib.so.44.1.1
+/usr/lib64/libupb_textformat_lib.so.44.2.0
 /usr/lib64/libupb_wire_lib.so.44
-/usr/lib64/libupb_wire_lib.so.44.1.1
+/usr/lib64/libupb_wire_lib.so.44.2.0
 /usr/lib64/libutf8_range_lib.so.44
-/usr/lib64/libutf8_range_lib.so.44.1.1
+/usr/lib64/libutf8_range_lib.so.44.2.0
 
 %files license
 %defattr(0644,root,root,0755)
